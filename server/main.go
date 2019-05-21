@@ -20,7 +20,7 @@ func main() {
 		log.Fatalf("Could not read sql file %s", err.Error())
 	}
 	queryStr := string(query)
-	if _, err := application.DB.Exec(queryStr); err != nil {
+	if err := application.ExecStatement(queryStr); err != nil {
 		log.Fatalf("Could not execute init sql commands: %s", err.Error())
 	}
 	application.Run(os.Getenv("PORT"))

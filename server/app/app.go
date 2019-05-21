@@ -34,3 +34,10 @@ func (app *App) setupHandlers() {
 func (app *App) Run(port string) {
 	log.Fatal(http.ListenAndServe(port, app.Router))
 }
+
+func (app *App) ExecStatement(statement string) error {
+	if _, err := app.DB.Exec(statement); err != nil {
+		return err
+	}
+	return nil
+}
