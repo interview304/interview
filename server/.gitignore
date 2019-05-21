@@ -1,0 +1,4 @@
+*.exe
+env.bat
+.vscode
+debug
