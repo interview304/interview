@@ -1,4 +1,4 @@
-module github.com/tarikeshaq/intervyou/server
+module github.com/interview304/interview/server
 
 go 1.12
 
