@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/tarikeshaq/intervyou/server/app"
+	"github.com/interview304/interview/server/app"
 )
 
 func main() {
