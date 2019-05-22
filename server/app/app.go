@@ -28,7 +28,9 @@ func (app *App) Initialize(dbname, username, password string) {
 }
 
 func (app *App) setupHandlers() {
-	app.Router.HandleFunc("/", app.HandlerNotImplemented).Methods("GET")
+	app.Router.HandleFunc("/", app.ExampleGetAllRowsHandler).Methods("GET")
+	app.Router.HandleFunc("/", app.ExampleInsertRowHandler).Methods("POST")
+	app.Router.HandleFunc("/{id}", app.ExampleDeleteRowByIdHandler).Methods("DELETE")
 }
 
 func (app *App) Run(port string) {

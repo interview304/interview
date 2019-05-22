@@ -1,9 +1,7 @@
 -- Contains all init table statements
-CREATE TABLE IF NOT EXISTS dummy(
+CREATE TABLE IF NOT EXISTS example (
     id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-);
-CREATE TABLE IF NOT EXISTS interview(
-    id SERIAL PRIMARY KEY,
-    type TEXT NOT NULL
+    name TEXT NOT NULL,
+    age INT,
+    height INT NOT NULL
 );
