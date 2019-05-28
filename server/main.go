@@ -23,5 +23,6 @@ func main() {
 	if err := application.ExecStatement(queryStr); err != nil {
 		log.Fatalf("Could not execute init sql commands: %s", err.Error())
 	}
+
 	application.Run(os.Getenv("PORT"))
 }
