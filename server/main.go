@@ -13,10 +13,12 @@ const dropTable = `DROP TABLE IF EXISTS Contains, Agreement, Conducts, Interview
 func main() {
 
 	application := app.App{}
-	application.Initialize(
+	if err := application.Initialize(
 		os.Getenv("DB_NAME"),
 		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"))
+		os.Getenv("DB_PASSWORD")); err != nil {
+		log.Fatalf("Could not open database %s", err.Error())
+	}
 	if err := application.ExecStatement(dropTable); err != nil {
 		log.Fatalf("Could not drop table: %v", err)
 	}
@@ -38,5 +40,5 @@ func main() {
 		log.Fatalf("Could not execute insert sql commands: %v", err)
 	}
 
-	application.Run(os.Getenv("PORT"))
+	log.Fatal(application.Run(os.Getenv("PORT")))
 }

@@ -3,7 +3,6 @@ package app
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -15,16 +14,17 @@ type App struct {
 	Router *mux.Router
 }
 
-func (app *App) Initialize(dbname, username, password string) {
+func (app *App) Initialize(dbname, username, password string) error {
 	connectionStatement := fmt.Sprintf("user=%s dbname=%s password=%s sslmode=disable",
 		username, dbname, password)
 	var err error
 	app.DB, err = sql.Open("postgres", connectionStatement)
 	if err != nil {
-		log.Fatalf("Could not open database %s", err.Error())
+		return err
 	}
 	app.Router = mux.NewRouter()
 	app.setupHandlers()
+	return nil
 }
 
 func (app *App) setupHandlers() {
@@ -33,8 +33,8 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/{id}", app.ExampleDeleteRowByIdHandler).Methods("DELETE")
 }
 
-func (app *App) Run(port string) {
-	log.Fatal(http.ListenAndServe(port, app.Router))
+func (app *App) Run(port string) error {
+	return http.ListenAndServe(port, app.Router)
 }
 
 func (app *App) ExecStatement(statement string) error {
