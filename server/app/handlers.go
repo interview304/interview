@@ -60,6 +60,25 @@ func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request
 	respondWithJSON(writer, http.StatusOK, map[string]string{"difficulty": difficulty})
 }
 
+type InterviewRequest struct {
+	Start string `json:"start"`
+	End   string `json:"end"`
+}
+
+func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.Request) {
+	decoder := json.NewDecoder(request.Body)
+	defer request.Body.Close()
+	var interviewRequest InterviewRequest
+	if err := decoder.Decode(&interviewRequest); err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+	interviews, err := models.GetInterviews(app.DB, interviewRequest.Start, interviewRequest.End)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+	}
+	respondWithJSON(writer, http.StatusOK, interviews)
+}
+
 // ===================== END OF EXAMPLES ===========================
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {

@@ -5,6 +5,35 @@ import (
 	"fmt"
 )
 
+type AvailableInterview struct {
+	ID         int    `json:"id"`
+	Start      string `json:"start"`
+	End        string `json:"end"`
+	PositionID int    `json:"position"`
+	Address    string `json:"address"`
+	Room       string `json:"room"`
+}
+
+func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available WHERE (start_time BETWEEN '%s' AND '%s')
+	AND (end_time BETWEEN '%s' AND '%s')`, start, end, start, end)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+}
+
 func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	query := fmt.Sprintf(`SELECT difficulty FROM (
 		SELECT question_id FROM Contains WHERE booked_interview_id = %d OR available_interview_id = %d) a, Questions b 
