@@ -22,6 +22,7 @@ func (app *App) ExampleGetAllRowsHandler(writer http.ResponseWriter, request *ht
 
 func (app *App) ExampleInsertRowHandler(writer http.ResponseWriter, request *http.Request) {
 	decoder := json.NewDecoder(request.Body)
+	defer request.Body.Close()
 	var example models.Example
 	if err := decoder.Decode(&example); err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
@@ -43,6 +44,20 @@ func (app *App) ExampleDeleteRowByIdHandler(writer http.ResponseWriter, request 
 		respondWithError(writer, http.StatusInternalServerError, err)
 	}
 	respondWithJSON(writer, http.StatusOK, map[string]string{"result": "success"})
+}
+
+func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	idStr := vars["id"]
+	interviewId, err := strconv.Atoi(idStr)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+	difficulty, err := models.GetQuestionDifficulty(app.DB, interviewId)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+	}
+	respondWithJSON(writer, http.StatusOK, map[string]string{"difficulty": difficulty})
 }
 
 // ===================== END OF EXAMPLES ===========================
