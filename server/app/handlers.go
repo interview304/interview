@@ -47,6 +47,37 @@ func (app *App) ExampleDeleteRowByIdHandler(writer http.ResponseWriter, request 
 
 // ===================== END OF EXAMPLES ===========================
 
+func (app *App) IntervieweeCreateUser(writer http.ResponseWriter, request *http.Request) {
+	decoder := json.NewDecoder(request.Body)
+	var interviewee models.Interviewee
+	if err := decoder.Decode(&interviewee); err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+	if err := interviewee.IntervieweeInsert(app.DB); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+	}
+	respondWithJSON(writer, http.StatusCreated, interviewee)
+}
+
+func (app *App) IntervieweeUpdateInfo(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	idStr := vars["id"]
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+
+	decoder := json.NewDecoder(request.Body)
+	var interviewee models.Interviewee	
+	if err := decoder.Decode(&interviewee); err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+	if err := interviewee.IntervieweeUpdate(app.DB, id); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+	}
+	respondWithJSON(writer, http.StatusOK, map[string]string{"updated": "success"}, Interviewee)
+}
+
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	setHeader(w)
