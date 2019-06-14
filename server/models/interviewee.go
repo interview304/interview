@@ -16,7 +16,7 @@ type Interviewee struct {
 }
 
 func (interviewee *Interviewee) IntervieweeInsert(db *sql.DB) error {
-	statement := fmt.Sprintf("INSERT INTO interviewee VALUES ('%s', '%s', '%s', '%s', %d, '%s')", interviewee.Phone, interviewee.Name,
+	statement := fmt.Sprintf("INSERT INTO Interviewee VALUES ('%s', '%s', '%s', '%s', %d, '%s')", interviewee.Phone, interviewee.Name,
 		interviewee.Status, interviewee.Address, interviewee.Age, interviewee.Email)
 	if _, err := db.Exec(statement); err != nil {
 		return err
@@ -25,7 +25,7 @@ func (interviewee *Interviewee) IntervieweeInsert(db *sql.DB) error {
 }
 
 func (interviewee *Interviewee) IntervieweeUpdate(db *sql.DB, id int) error {
-	statement := fmt.Sprintf("UPDATE 'interviewee' SET phone_number='%s', name='%s', status='%s', address='%s', age=%d, email='%s') WHERE id = %d", 
+	statement := fmt.Sprintf("UPDATE 'Interviewee' SET phone_number='%s', name='%s', status='%s', address='%s', age=%d, email='%s') WHERE id = %d", 
 	interviewee.Phone, interviewee.Name, interviewee.Status, interviewee.Address, interviewee.Age, interviewee.Email, interviewee.ID)
 	if _, err := db.Exec(statement); err != nil {
 		return err

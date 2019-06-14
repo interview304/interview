@@ -83,6 +83,7 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 
 func (app *App) IntervieweeCreateUser(writer http.ResponseWriter, request *http.Request) {
 	decoder := json.NewDecoder(request.Body)
+	defer request.Body.Close()
 	var interviewee models.Interviewee
 	if err := decoder.Decode(&interviewee); err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
@@ -109,7 +110,7 @@ func (app *App) IntervieweeUpdateInfo(writer http.ResponseWriter, request *http.
 	if err := interviewee.IntervieweeUpdate(app.DB, id); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 	}
-	respondWithJSON(writer, http.StatusOK, map[string]string{"updated": "success"}, Interviewee)
+	respondWithJSON(writer, http.StatusOK, map[string]string{"updated": "success"})
 }
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {

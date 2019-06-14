@@ -31,8 +31,8 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/", app.ExampleGetAllRowsHandler).Methods("GET")
 	app.Router.HandleFunc("/", app.ExampleInsertRowHandler).Methods("POST")
 	app.Router.HandleFunc("/{id}", app.ExampleDeleteRowByIdHandler).Methods("DELETE")
-	app.Router.HandleFunc("/interviewee/create/", app.IntervieweeCreateUser).Methods("POST")
-	app.Router.HandleFunc("/interviewee/update/{id}", app.IntervieweeUpdateInfo).Methods("POST")
+	app.Router.HandleFunc("/intervieweecreate", app.IntervieweeCreateUser).Methods("POST")
+	app.Router.HandleFunc("/intervieweeupdate/{id}", app.IntervieweeUpdateInfo).Methods("POST")
 	app.Router.HandleFunc("/difficulty/{id}", app.GetQuestionDifficultyHandler).Methods("GET")
 	app.Router.HandleFunc("/interviews", app.GetInterviewsHandler).Methods("GET")
 }
