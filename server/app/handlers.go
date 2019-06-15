@@ -26,9 +26,11 @@ func (app *App) ExampleInsertRowHandler(writer http.ResponseWriter, request *htt
 	var example models.Example
 	if err := decoder.Decode(&example); err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
+		return
 	}
 	if err := example.ExampleAddRow(app.DB); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
+		return
 	}
 	respondWithJSON(writer, http.StatusCreated, example)
 }
@@ -39,9 +41,11 @@ func (app *App) ExampleDeleteRowByIdHandler(writer http.ResponseWriter, request 
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
+		return
 	}
 	if err = models.ExampleDeleteRowById(app.DB, id); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
+		return
 	}
 	respondWithJSON(writer, http.StatusOK, map[string]string{"result": "success"})
 }
@@ -52,10 +56,12 @@ func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request
 	interviewId, err := strconv.Atoi(idStr)
 	if err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
+		return
 	}
 	difficulty, err := models.GetQuestionDifficulty(app.DB, interviewId)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
+		return
 	}
 	respondWithJSON(writer, http.StatusOK, map[string]string{"difficulty": difficulty})
 }
@@ -71,15 +77,54 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 	var interviewRequest InterviewRequest
 	if err := decoder.Decode(&interviewRequest); err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
+		return
 	}
 	interviews, err := models.GetInterviews(app.DB, interviewRequest.Start, interviewRequest.End)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
+		return
 	}
 	respondWithJSON(writer, http.StatusOK, interviews)
 }
 
 // ===================== END OF EXAMPLES ===========================
+
+func (app *App) IntervieweeCreateUser(writer http.ResponseWriter, request *http.Request) {
+	decoder := json.NewDecoder(request.Body)
+	defer request.Body.Close()
+	var interviewee models.Interviewee
+	if err := decoder.Decode(&interviewee); err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+	if err := interviewee.IntervieweeInsert(app.DB); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusCreated, interviewee)
+}
+
+func (app *App) IntervieweeUpdateInfo(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	idStr := vars["id"]
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+
+	decoder := json.NewDecoder(request.Body)
+	var interviewee models.Interviewee
+	if err := decoder.Decode(&interviewee); err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+	if err := interviewee.IntervieweeUpdate(app.DB, id); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, map[string]string{"updated": "success"})
+}
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
