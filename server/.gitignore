@@ -2,3 +2,5 @@
 env.bat
 .vscode
 debug
+.env
+server
