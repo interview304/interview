@@ -166,3 +166,34 @@ func setHeader(w http.ResponseWriter) {
 	w.Header().Set("Access-Control-Allow-Headers",
 		"Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
+
+type BookRequestBody struct {
+	IntervieweeID int `json:"interviewee"`
+	Agreement     struct {
+		ID  int  `json:"id"`
+		Nda bool `json:"nda"`
+		Tou bool `json:"tou"`
+	} `json:"agreement"`
+}
+
+func (app *App) BookInterview(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	id := vars["id"]
+	interviewID, err := strconv.Atoi(id)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+
+	var bookRequestBody BookRequestBody
+	decoder := json.NewDecoder(request.Body)
+	defer request.Body.Close()
+	decoder.Decode(&bookRequestBody)
+	if err := models.BookInterview(app.DB, interviewID, bookRequestBody.IntervieweeID,
+		bookRequestBody.Agreement.ID, bookRequestBody.Agreement.Nda,
+		bookRequestBody.Agreement.Tou); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, map[string]string{"booked": "success"})
+}
