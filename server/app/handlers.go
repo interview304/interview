@@ -60,7 +60,7 @@ func (app *App) DeleteInterviewHandler(writer http.ResponseWriter, request *http
 		respondWithError(writer, http.StatusBadRequest, err)
 		return
 	}
-	if err := models.InterviewDelete(app.DB, interviewID); err != nil {
+	if err := models.DeleteInterview(app.DB, interviewID); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
 	}

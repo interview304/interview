@@ -82,13 +82,22 @@ func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	return difficulty, nil
 }
 
-func InterviewDelete(db *sql.DB, interviewId int) error {
-	// TODO add calls to updateContains and updateConducts with false as a flag
+func DeleteInterview(db *sql.DB, interviewID int) error {
+	if err := updateConducts(db, interviewID, false); err != nil {
+		return fmt.Errorf("Unable to update conduct table: %v", err)
+	}
+
+	if err := updateContains(db, interviewID, false); err != nil {
+		return fmt.Errorf("unable to update contains table: %v", err)
+	}
+
 	statement := fmt.Sprintf(`DELETE FROM Booked
-		WHERE id = %d`, interviewId)
+		WHERE id = %d`, interviewID)
+
 	if _, err := db.Exec(statement); err != nil {
 		return err
 	}
+
 	return nil
 }
 
