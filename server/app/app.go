@@ -34,7 +34,8 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/interviewee", app.IntervieweeCreateUser).Methods("POST")
 	app.Router.HandleFunc("/interviewee/{id}", app.IntervieweeUpdateInfo).Methods("PUT")
 	app.Router.HandleFunc("/difficulty/{id}", app.GetQuestionDifficultyHandler).Methods("GET")
-	app.Router.HandleFunc("/interviews", app.GetInterviewsHandler).Methods("GET")
+	app.Router.HandleFunc("/interview", app.GetInterviewsHandler).Methods("GET")
+	app.Router.HandleFunc("/interview/{id}", app.DeleteInterviewHandler).Methods("DELETE")
 }
 
 func (app *App) Run(port string) error {

@@ -50,15 +50,32 @@ func (app *App) ExampleDeleteRowByIdHandler(writer http.ResponseWriter, request 
 	respondWithJSON(writer, http.StatusOK, map[string]string{"result": "success"})
 }
 
-func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request *http.Request) {
+// ===================== END OF EXAMPLES ===========================
+
+func (app *App) DeleteInterviewHandler(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	idStr := vars["id"]
-	interviewId, err := strconv.Atoi(idStr)
+	interviewID, err := strconv.Atoi(idStr)
 	if err != nil {
 		respondWithError(writer, http.StatusBadRequest, err)
 		return
 	}
-	difficulty, err := models.GetQuestionDifficulty(app.DB, interviewId)
+	if err := models.InterviewDelete(app.DB, interviewID); err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, map[string]string{"deleted": "success"})
+}
+
+func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	idStr := vars["id"]
+	interviewID, err := strconv.Atoi(idStr)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+	difficulty, err := models.GetQuestionDifficulty(app.DB, interviewID)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
@@ -79,15 +96,20 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 		respondWithError(writer, http.StatusBadRequest, err)
 		return
 	}
-	interviews, err := models.GetInterviews(app.DB, interviewRequest.Start, interviewRequest.End)
+	startTime := interviewRequest.Start
+	endTime := interviewRequest.End
+	// If no startTime is specified return all available interviews
+	if (startTime == "") {
+		startTime = "2000-01-01 10:00:00"
+		endTime = "2109-05-25 13:00:00"
+	}
+	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
 	}
 	respondWithJSON(writer, http.StatusOK, interviews)
 }
-
-// ===================== END OF EXAMPLES ===========================
 
 func (app *App) IntervieweeCreateUser(writer http.ResponseWriter, request *http.Request) {
 	decoder := json.NewDecoder(request.Body)
