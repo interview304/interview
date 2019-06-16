@@ -71,3 +71,12 @@ func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	}
 	return difficulty, nil
 }
+
+func InterviewDelete(db *sql.DB, interviewId int) error {
+	statement := fmt.Sprintf(`DELETE FROM Booked
+		WHERE id = %d`, interviewId)
+	if _, err := db.Exec(statement); err != nil {
+		return err
+	}
+	return nil
+}

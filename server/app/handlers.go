@@ -64,7 +64,7 @@ func (app *App) DeleteInterviewHandler(writer http.ResponseWriter, request *http
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
 	}
-	respondWithJSON(writer, http.StatusOK, interviews)
+	respondWithJSON(writer, http.StatusOK, map[string]string{"deleted": "success"})
 }
 
 func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request *http.Request) {
@@ -96,7 +96,14 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 		respondWithError(writer, http.StatusBadRequest, err)
 		return
 	}
-	interviews, err := models.GetInterviews(app.DB, interviewRequest.Start, interviewRequest.End)
+	startTime := interviewRequest.Start
+	endTime := interviewRequest.End
+	// If no startTime is specified return all available interviews
+	if (startTime == "") {
+		startTime = "2000-01-01 10:00:00"
+		endTime = "2109-05-25 13:00:00"
+	}
+	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
