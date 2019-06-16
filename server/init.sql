@@ -94,12 +94,12 @@ CREATE TABLE IF NOT EXISTS Interviewer (
 );
 
 CREATE TABLE IF NOT EXISTS Conducts (
-	booked_interview_id SERIAL,
- 	available_interview_id SERIAL,
-      interviewer_id SERIAL,
-      PRIMARY KEY (booked_interview_id, available_interview_id, 
-            interviewer_id),
-      FOREIGN KEY (booked_interview_id) REFERENCES Booked
+	booked_interview_id INTEGER DEFAULT 0,
+ 	available_interview_id INTEGER DEFAULT 0,
+    interviewer_id SERIAL,
+    PRIMARY KEY (booked_interview_id, available_interview_id, 
+        interviewer_id),
+    FOREIGN KEY (booked_interview_id) REFERENCES Booked
  	 	ON DELETE SET DEFAULT ON UPDATE CASCADE,
  	FOREIGN KEY (available_interview_id) REFERENCES Available
  	 	ON DELETE SET DEFAULT ON UPDATE CASCADE,
@@ -114,12 +114,13 @@ CREATE TABLE IF NOT EXISTS Agreement (
  	terms_of_use BOOLEAN NOT NULL,
  	PRIMARY KEY (id, interview_id),
  	FOREIGN KEY (interview_id) REFERENCES Booked
+		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Contains (
- 	booked_interview_id SERIAL,
- 	available_interview_id SERIAL,
-     question_id SERIAL,
+ 	booked_interview_id INTEGER DEFAULT 0,
+ 	available_interview_id INTEGER DEFAULT 0,
+    question_id SERIAL,
  	PRIMARY KEY (booked_interview_id, available_interview_id, 
             question_id),
  	FOREIGN KEY (booked_interview_id) REFERENCES Booked
