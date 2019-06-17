@@ -22,7 +22,7 @@ func GetInterviewers(db *sql.DB) ([]Interviewer, error) {
 			cn.question_id = q.id
 		GROUP BY ir.id, ir.role, ir.name
 		UNION
-		SELECT ir.id as id, ir.name as name, ir.role as role, avg(q.difficulty) as dfficulty
+		SELECT ir.id as id, ir.name as name, ir.role as role, avg(q.difficulty) as difficulty
 		FROM Interviewer ir, Conducts cd, Contains cn, Questions q
 		WHERE ir.id = cd.interviewer_id AND cd.booked_interview_id = cn.booked_interview_id AND
 			cn.question_id = q.id
