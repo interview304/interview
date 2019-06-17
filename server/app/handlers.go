@@ -3,6 +3,7 @@ package app
 import (
 	"encoding/json"
 	"net/http"
+	"net/url"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -92,26 +93,26 @@ func (app *App) GetInterviewsWithEveryQuestionHandler(writer http.ResponseWriter
 	respondWithJSON(writer, http.StatusOK, interviews)
 }
 
-type InterviewRequest struct {
-	Start string `json:"start"`
-	End   string `json:"end"`
+func (app *App) GetAllInterviews(writer http.ResponseWriter, request *http.Request) {
+	startTime := "2000-01-01 10:00:00"
+	endTime := "2109-05-25 13:00:00"
+	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interviews)
 }
 
 func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.Request) {
-	decoder := json.NewDecoder(request.Body)
-	defer request.Body.Close()
-	var interviewRequest InterviewRequest
-	if err := decoder.Decode(&interviewRequest); err != nil {
-		respondWithError(writer, http.StatusBadRequest, err)
-		return
-	}
-	startTime := interviewRequest.Start
-	endTime := interviewRequest.End
-	// If no startTime is specified return all available interviews
-	if (startTime == "") {
-		startTime = "2000-01-01 10:00:00"
-		endTime = "2109-05-25 13:00:00"
-	}
+
+	vars := mux.Vars(request)
+	start := vars["start"]
+	end := vars["end"]
+
+	startTime, _ := url.QueryUnescape(start)
+	endTime, _ := url.QueryUnescape(end)
+
 	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
