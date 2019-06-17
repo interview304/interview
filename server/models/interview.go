@@ -44,6 +44,28 @@ func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) 
 	return interviews, nil
 }
 
+func GetInterviewsWithEveryQuestion(db *sql.DB) ([]AvailableInterview, error ) {
+	query := fmt.Sprintf(`SELECT * FROM Available a WHERE NOT EXISTS (
+	SELECT * FROM Contains c WHERE NOT EXISTS (
+		SELECT q.id FROM Questions q
+		WHERE a.id = c.available_interview_id AND q.id = c.question_id`)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+}
+
 func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	query := fmt.Sprintf(`SELECT difficulty FROM (
 		SELECT question_id FROM Contains WHERE booked_interview_id = %d OR available_interview_id = %d) a, Questions b 
