@@ -206,3 +206,12 @@ func (app *App) BookInterview(writer http.ResponseWriter, request *http.Request)
 	}
 	respondWithJSON(writer, http.StatusOK, map[string]string{"booked": "success"})
 }
+
+func (app *App) GetInterviewer(writer http.ResponseWriter, request *http.Request) {
+	interviewers, err := models.GetInterviewers(app.DB)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interviewers)
+}

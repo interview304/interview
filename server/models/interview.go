@@ -79,18 +79,11 @@ func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	sum := 0.0
 	defer rows.Close()
 	for rows.Next() {
-		var difficulty string
+		var difficulty float64
 		if err := rows.Scan(&difficulty); err != nil {
 			return "", err
 		}
-		switch difficulty {
-		case "easy":
-			sum++
-		case "medium":
-			sum += 2
-		case "hard":
-			sum += 3
-		}
+		sum += difficulty
 		count++
 	}
 	avg := sum / count
