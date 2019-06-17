@@ -11,11 +11,11 @@ INSERT INTO Duration VALUES('2019-05-25 14:00:00','2019-05-25 15:00:00',1);
 INSERT INTO Duration VALUES('2019-05-25 15:00:00','2019-05-25 16:00:00',1);
 INSERT INTO Duration VALUES('2019-05-25 16:00:00','2019-05-25 17:00:00',1);
 
-INSERT INTO Questions VALUES(0, 'What school do you go to?', 'easy', 'general', 'Applicant should indicate school & provide some background info.');
-INSERT INTO Questions VALUES(1, 'What is the fastest possible runtime of a comparison based sorting algorithm?', 'medium', 'technical', 'O(nlog(n))');
-INSERT INTO Questions VALUES(2, 'What is the difference between a thread and a process?', 'hard', 'technical', 'A thread is a path of execution within a process and a process can contain multiple threads');
-INSERT INTO Questions VALUES(3, 'What are some projects you recently worked on?', 'medium', 'general', 'Candidate should bring up recent projects and describe what they have learned throughout that process');
-INSERT INTO Questions VALUES(4, 'What does CSS stand for?', 'easy', 'technical', 'Cascading Style Sheet');
+INSERT INTO Questions VALUES(0, 'What school do you go to?', 1.0, 'general', 'Applicant should indicate school & provide some background info.');
+INSERT INTO Questions VALUES(1, 'What is the fastest possible runtime of a comparison based sorting algorithm?', 2.0, 'technical', 'O(nlog(n))');
+INSERT INTO Questions VALUES(2, 'What is the difference between a thread and a process?', 3.0, 'technical', 'A thread is a path of execution within a process and a process can contain multiple threads');
+INSERT INTO Questions VALUES(3, 'What are some projects you recently worked on?', 2.0, 'general', 'Candidate should bring up recent projects and describe what they have learned throughout that process');
+INSERT INTO Questions VALUES(4, 'What does CSS stand for?', 1.0, 'technical', 'Cascading Style Sheet');
 
 -- IMPORTANT: when making any changes to position please update the dropdown in index.jsx 
 INSERT INTO Position VALUES(0, 'Sales Associate', 'Sales', 'Full time');
