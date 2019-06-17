@@ -46,9 +46,9 @@ func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) 
 
 func GetInterviewsWithEveryQuestion(db *sql.DB) ([]AvailableInterview, error ) {
 	query := fmt.Sprintf(`SELECT * FROM Available a WHERE NOT EXISTS (
-	SELECT * FROM Contains c WHERE NOT EXISTS (
-		SELECT q.id FROM Questions q
-		WHERE a.id = c.available_interview_id AND q.id = c.question_id`)
+	SELECT * FROM Questions q WHERE NOT EXISTS (
+		SELECT c.available_interview_id FROM Contains c
+		WHERE a.id = c.available_interview_id AND q.id = c.question_id) )`)
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err
