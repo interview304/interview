@@ -4,3 +4,4 @@ env.bat
 debug
 .env
 server
+.bashrc
