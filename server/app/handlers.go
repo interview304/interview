@@ -60,7 +60,7 @@ func (app *App) DeleteInterviewHandler(writer http.ResponseWriter, request *http
 		respondWithError(writer, http.StatusBadRequest, err)
 		return
 	}
-	if err := models.InterviewDelete(app.DB, interviewID); err != nil {
+	if err := models.DeleteInterview(app.DB, interviewID); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
 	}
@@ -81,6 +81,15 @@ func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request
 		return
 	}
 	respondWithJSON(writer, http.StatusOK, map[string]string{"difficulty": difficulty})
+}
+
+func (app *App) GetInterviewsWithEveryQuestionHandler(writer http.ResponseWriter, request *http.Request) {
+	interviews, err := models.GetInterviewsWithEveryQuestion(app.DB)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interviews)
 }
 
 type InterviewRequest struct {

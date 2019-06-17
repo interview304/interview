@@ -44,6 +44,28 @@ func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) 
 	return interviews, nil
 }
 
+func GetInterviewsWithEveryQuestion(db *sql.DB) ([]AvailableInterview, error ) {
+	query := fmt.Sprintf(`SELECT * FROM Available a WHERE NOT EXISTS (
+	SELECT * FROM Questions q WHERE NOT EXISTS (
+		SELECT c.available_interview_id FROM Contains c
+		WHERE a.id = c.available_interview_id AND q.id = c.question_id) )`)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+}
+
 func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	query := fmt.Sprintf(`SELECT difficulty FROM (
 		SELECT question_id FROM Contains WHERE booked_interview_id = %d OR available_interview_id = %d) a, Questions b 
@@ -82,13 +104,22 @@ func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 	return difficulty, nil
 }
 
-func InterviewDelete(db *sql.DB, interviewId int) error {
-	// TODO add calls to updateContains and updateConducts with false as a flag
+func DeleteInterview(db *sql.DB, interviewID int) error {
+	if err := updateConducts(db, interviewID, false); err != nil {
+		return fmt.Errorf("Unable to update conduct table: %v", err)
+	}
+
+	if err := updateContains(db, interviewID, false); err != nil {
+		return fmt.Errorf("unable to update contains table: %v", err)
+	}
+
 	statement := fmt.Sprintf(`DELETE FROM Booked
-		WHERE id = %d`, interviewId)
+		WHERE id = %d`, interviewID)
+
 	if _, err := db.Exec(statement); err != nil {
 		return err
 	}
+
 	return nil
 }
 

@@ -71,7 +71,13 @@ INSERT INTO Agreement VALUES(2, 2, true, true);
 INSERT INTO Agreement VALUES(3, 3, true, true);
 INSERT INTO Agreement VALUES(4, 4, true, true);
 
+-- (BookedID, AvailableID, QuestionID)
 INSERT INTO Contains VALUES(0, 4, 0);
+INSERT INTO Contains VALUES(0, 4, 1);
+INSERT INTO Contains VALUES(0, 4, 2);
+INSERT INTO Contains VALUES(0, 4, 3);
+INSERT INTO Contains VALUES(0, 4, 4);
+INSERT INTO Contains VALUES(0, 2, 2);
 INSERT INTO Contains VALUES(1, 0, 1);
 INSERT INTO Contains VALUES(2, 0, 2);
 INSERT INTO Contains VALUES(3, 0, 3);
