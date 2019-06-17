@@ -83,6 +83,15 @@ func (app *App) GetQuestionDifficultyHandler(writer http.ResponseWriter, request
 	respondWithJSON(writer, http.StatusOK, map[string]string{"difficulty": difficulty})
 }
 
+func (app *App) GetInterviewsWithEveryQuestionHandler(writer http.ResponseWriter, request *http.Request) {
+	interviews, err := models.GetInterviewsWithEveryQuestion(app.DB)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interviews)
+}
+
 type InterviewRequest struct {
 	Start string `json:"start"`
 	End   string `json:"end"`
