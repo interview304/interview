@@ -172,3 +172,20 @@ func (app *App) GetInterviewer(writer http.ResponseWriter, request *http.Request
 	}
 	respondWithJSON(writer, http.StatusOK, interviewers)
 }
+
+func (app *App) GetInterviewsByPosition(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+	position := vars["position"]
+
+	positionName, err := url.QueryUnescape(position)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+	}
+
+	interviews, err := models.GetInterviewsByPosition(app.DB, positionName)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+	}
+
+	respondWithJSON(writer, http.StatusOK, interviews)
+}

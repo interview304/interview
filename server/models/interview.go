@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+
 	"github.com/google/uuid"
 )
 
@@ -28,6 +29,26 @@ type BookedInterview struct {
 func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) {
 	query := fmt.Sprintf(`SELECT * FROM Available WHERE (start_time BETWEEN '%s' AND '%s')
 	AND (end_time BETWEEN '%s' AND '%s')`, start, end, start, end)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+}
+
+func GetInterviewsByPosition(db *sql.DB, positionName string) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available a Position p WHERE
+		a.position_id = p.id AND p.name = '%s'`, positionName)
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err
