@@ -39,7 +39,7 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/interview/allquestions", app.GetInterviewsWithEveryQuestionHandler).Methods("GET")
 	app.Router.HandleFunc("/interview/{id}", app.DeleteInterviewHandler).Methods("DELETE")
 	app.Router.HandleFunc("/interview/{id}", app.PreflightHandler).Methods("OPTIONS")
-	app.Router.HandleFunc("/interview/book/{id}", app.BookInterview).Methods("POST")
+	app.Router.HandleFunc("/interview/{id}", app.BookInterview).Methods("POST")
 }
 
 func (app *App) PreflightHandler(writer http.ResponseWriter, request *http.Request) {
