@@ -180,7 +180,6 @@ func setHeader(w http.ResponseWriter) {
 type BookRequestBody struct {
 	IntervieweeID int `json:"interviewee"`
 	Agreement     struct {
-		ID  int  `json:"id"`
 		Nda bool `json:"nda"`
 		Tou bool `json:"tou"`
 	} `json:"agreement"`
@@ -200,7 +199,7 @@ func (app *App) BookInterview(writer http.ResponseWriter, request *http.Request)
 	defer request.Body.Close()
 	decoder.Decode(&bookRequestBody)
 	if err := models.BookInterview(app.DB, interviewID, bookRequestBody.IntervieweeID,
-		bookRequestBody.Agreement.ID, bookRequestBody.Agreement.Nda,
+		bookRequestBody.Agreement.Nda,
 		bookRequestBody.Agreement.Tou); err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return

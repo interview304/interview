@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	"github.com/google/uuid"
 )
 
 type AvailableInterview struct {
@@ -151,7 +152,7 @@ func (available *AvailableInterview) create(db *sql.DB) error {
 	return nil
 }
 
-func BookInterview(db *sql.DB, interviewID, intervieweeID, agreementID int, nda, tou bool) error {
+func BookInterview(db *sql.DB, interviewID, intervieweeID int, nda, tou bool) error {
 	available, err := getAvailable(db, interviewID)
 	if err != nil {
 		return fmt.Errorf("Unable to get interview: %v", err)
@@ -179,7 +180,7 @@ func BookInterview(db *sql.DB, interviewID, intervieweeID, agreementID int, nda,
 		return fmt.Errorf("unable to update contains table: %v", err)
 	}
 
-	if err := addAgreement(db, interviewID, agreementID, nda, tou); err != nil {
+	if err := addAgreement(db, interviewID, nda, tou); err != nil {
 		return fmt.Errorf("unable to add agreement: %v", err)
 	}
 
@@ -220,7 +221,12 @@ func updateContains(db *sql.DB, interviewID int, isToBooked bool) error {
 	return nil
 }
 
-func addAgreement(db *sql.DB, interviewID, agreementID int, nda, tou bool) error {
+func addAgreement(db *sql.DB, interviewID int, nda, tou bool) error {
+	id, err := uuid.NewUUID()
+	if err != nil {
+		return fmt.Errorf("Unable to generate id for interviewee: %v", err)
+	}
+	agreementID := uint16(id.ID())
 	insertStatement := fmt.Sprintf(`INSERT INTO Agreement VALUES (%d, %d, %v, %v)`,
 		agreementID, interviewID, nda, tou)
 	if _, err := db.Exec(insertStatement); err != nil {
