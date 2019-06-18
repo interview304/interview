@@ -1,40 +1,41 @@
-import React, { Component } from 'react'
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import PositionDropdown from '../components/PositionDropdown';
+import React, { Component } from "react";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import PositionDropdown from "../components/PositionDropdown";
 
 const Container = styled.div`
-    text-align: center;
+  text-align: center;
 `;
 
 const Dropdown = styled(PositionDropdown)`
-    margin: 80px 0;
+  margin: 80px 0;
 `;
 
 const GoButton = styled(Button)`
-    display: block;
+  display: block;
 `;
 
 const Heading = styled.h1`
-    font-size: 56px;
+  font-size: 56px;
 `;
 
 export default class Home extends Component {
-    
-    setSelected(positionName) {
-        this.setState({
-            selected: positionName
-        });
-    }
-    
-    render() {
-        return (
-            <Container>
-                <Heading>Interview</Heading>
-                <Dropdown callback={(positionName) => this.setSelected(positionName)}/>
-                <br></br>
-                <GoButton variant="contained" color="primary">Let's Go</GoButton>
-            </Container>
-        )
-    }
+  setSelected(positionName) {
+    this.setState({
+      selected: positionName
+    });
+  }
+
+  render() {
+    return (
+      <Container>
+        <Heading>Interview</Heading>
+        <Dropdown callback={positionName => this.setSelected(positionName)} />
+        <br />
+        <GoButton variant="contained" color="primary">
+          Let's Go
+        </GoButton>
+      </Container>
+    );
+  }
 }
