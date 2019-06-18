@@ -207,3 +207,23 @@ func (app *App) GetInterviewsByPosition(writer http.ResponseWriter, request *htt
 
 	respondWithJSON(writer, http.StatusOK, interviews)
 }
+func (app *App) GetInterviewById(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+
+	id := vars["id"]
+
+	interviewID, err := strconv.Atoi(id)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+
+	interview, err := models.GetInterviewById(app.DB, interviewID)
+
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+
+	respondWithJSON(writer, http.StatusOK, interview)
+}
