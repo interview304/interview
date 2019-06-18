@@ -26,9 +26,10 @@ type BookedInterview struct {
 	IntervieweeID int    `json:"interviewee"`
 }
 
-func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) {
-	query := fmt.Sprintf(`SELECT * FROM Available WHERE (start_time BETWEEN '%s' AND '%s')
-	AND (end_time BETWEEN '%s' AND '%s')`, start, end, start, end)
+func GetInterviews(db *sql.DB, start, end, position string) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available a, Position p
+	 WHERE (a.start_time BETWEEN '%s' AND '%s')
+	AND (end_time BETWEEN '%s' AND '%s') AND (a.position_id = p.id) AND (p.name = '%s')`, start, end, start, end, position)
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err

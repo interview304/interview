@@ -33,7 +33,7 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/interviewee/{id}", app.IntervieweeGetInfo).Methods("GET")
 	app.Router.HandleFunc("/interviewee/{id}", app.PreflightHandler).Methods("OPTIONS")
 	app.Router.HandleFunc("/difficulty/{id}", app.GetQuestionDifficultyHandler).Methods("GET")
-	app.Router.HandleFunc("/interview/{start}/{end}", app.GetInterviewsHandler).Methods("GET")
+	app.Router.HandleFunc("/interview/{start}/{end}/{position}", app.GetInterviewsHandler).Methods("GET")
 	app.Router.HandleFunc("/interview", app.GetAllInterviews).Methods("GET")
 	app.Router.HandleFunc("/interview/{position}", app.GetInterviewsByPosition).Methods("GET")
 	app.Router.HandleFunc("/interview/allquestions", app.GetInterviewsWithEveryQuestionHandler).Methods("GET")
