@@ -47,7 +47,8 @@ func GetAllInterviews(db *sql.DB) ([]AvailableInterview, error) {
 }
 
 func GetInterviews(db *sql.DB, start, end, position string) ([]AvailableInterview, error) {
-	query := fmt.Sprintf(`SELECT * FROM Available a, Position p
+	query := fmt.Sprintf(`SELECT a.id, a.start_time, a.end_time, a.position_id
+	, a.address, a.room FROM Available a, Position p
 	 WHERE (a.start_time BETWEEN '%s' AND '%s')
 	AND (end_time BETWEEN '%s' AND '%s') AND (a.position_id = p.id) AND (p.name = '%s')`, start, end, start, end, position)
 	rows, err := db.Query(query)
