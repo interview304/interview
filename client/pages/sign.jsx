@@ -36,7 +36,7 @@ export default class sign extends Component {
 
     bookInterview() {
         const requestBody = {
-            "interviewee": this.props.intervieweeId,
+            "interviewee": parseInt(this.props.intervieweeId, 10),
             "agreement": {
                 "nda": this.state.nda,
                 "tou": this.state.tou,
