@@ -44,7 +44,7 @@ func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) 
 	return interviews, nil
 }
 
-func GetInterviewsWithEveryQuestion(db *sql.DB) ([]AvailableInterview, error ) {
+func GetInterviewsWithEveryQuestion(db *sql.DB) ([]AvailableInterview, error) {
 	query := fmt.Sprintf(`SELECT * FROM Available a WHERE NOT EXISTS (
 	SELECT * FROM Questions q WHERE NOT EXISTS (
 		SELECT c.available_interview_id FROM Contains c
@@ -105,6 +105,24 @@ func GetQuestionDifficulty(db *sql.DB, interviewId int) (string, error) {
 }
 
 func DeleteInterview(db *sql.DB, interviewID int) error {
+
+	getStatement := fmt.Sprintf(`SELECT id, start_time,
+		 end_time, position_id, address, room_name
+		  FROM Booked WHERE id = %d`, interviewID)
+
+	row := db.QueryRow(getStatement)
+
+	var available AvailableInterview
+
+	if err := row.Scan(&available.ID, &available.Start, &available.End, &available.PositionID,
+		&available.Address, &available.Room); err != nil {
+		return err
+	}
+
+	if err := available.create(db); err != nil {
+		return err
+	}
+
 	if err := updateConducts(db, interviewID, false); err != nil {
 		return fmt.Errorf("Unable to update conduct table: %v", err)
 	}
@@ -120,6 +138,16 @@ func DeleteInterview(db *sql.DB, interviewID int) error {
 		return err
 	}
 
+	return nil
+}
+
+func (available *AvailableInterview) create(db *sql.DB) error {
+	insertStatement := fmt.Sprintf(` INSERT INTO Available VALUES (
+		%d, '%s', '%s', %d, '%s', '%s')`, available.ID, available.Start, available.End,
+		available.PositionID, available.Address, available.Room)
+	if _, err := db.Exec(insertStatement); err != nil {
+		return err
+	}
 	return nil
 }
 
