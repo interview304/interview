@@ -10,49 +10,6 @@ import (
 	"github.com/interview304/interview/server/models"
 )
 
-// ======================= START OF EXAMPLES for http handlers ======================
-
-func (app *App) ExampleGetAllRowsHandler(writer http.ResponseWriter, request *http.Request) {
-	examples, err := models.ExampleQueryManyRows(app.DB, nil)
-	if err != nil {
-		respondWithError(writer, http.StatusInternalServerError, err)
-		return
-	}
-	respondWithJSON(writer, http.StatusOK, examples)
-}
-
-func (app *App) ExampleInsertRowHandler(writer http.ResponseWriter, request *http.Request) {
-	decoder := json.NewDecoder(request.Body)
-	defer request.Body.Close()
-	var example models.Example
-	if err := decoder.Decode(&example); err != nil {
-		respondWithError(writer, http.StatusBadRequest, err)
-		return
-	}
-	if err := example.ExampleAddRow(app.DB); err != nil {
-		respondWithError(writer, http.StatusInternalServerError, err)
-		return
-	}
-	respondWithJSON(writer, http.StatusCreated, example)
-}
-
-func (app *App) ExampleDeleteRowByIdHandler(writer http.ResponseWriter, request *http.Request) {
-	vars := mux.Vars(request)
-	idStr := vars["id"]
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		respondWithError(writer, http.StatusBadRequest, err)
-		return
-	}
-	if err = models.ExampleDeleteRowById(app.DB, id); err != nil {
-		respondWithError(writer, http.StatusInternalServerError, err)
-		return
-	}
-	respondWithJSON(writer, http.StatusOK, map[string]string{"result": "success"})
-}
-
-// ===================== END OF EXAMPLES ===========================
-
 func (app *App) DeleteInterviewHandler(writer http.ResponseWriter, request *http.Request) {
 	vars := mux.Vars(request)
 	idStr := vars["id"]
