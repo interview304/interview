@@ -20,13 +20,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleSelect() {
+export default function SimpleSelect(props) {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     position: '',
   });
 
   function handleChange(event) {
+    props.callback(event.target.value);
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value,
@@ -45,12 +46,12 @@ export default function SimpleSelect() {
             id: 'position-id',
           }}
         >
-            <MenuItem value=""><em>None</em></MenuItem>
-            <MenuItem value={'Sales Associate'}>Sales Associate</MenuItem>
-            <MenuItem value={'Graphics Designer'}>Graphics Designer</MenuItem>
-            <MenuItem value={'Backend Engineer'}>Backend Engineer</MenuItem>
-            <MenuItem value={'Frontend Engineer'}>Frontend Engineer</MenuItem>
-            <MenuItem value={'Data Science'}>Data Science</MenuItem>
+          <MenuItem value=""><em>None</em></MenuItem>
+          <MenuItem value={'Sales Associate'}>Sales Associate</MenuItem>
+          <MenuItem value={'Graphics Designer'}>Graphics Designer</MenuItem>
+          <MenuItem value={'Backend Engineer'}>Backend Engineer</MenuItem>
+          <MenuItem value={'Frontend Engineer'}>Frontend Engineer</MenuItem>
+          <MenuItem value={'Data Science'}>Data Science</MenuItem>
         </Select>
       </FormControl>
     </form>

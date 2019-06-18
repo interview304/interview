@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
 import PositionDropdown from '../components/PositionDropdown';
 
 const Container = styled.div`
@@ -21,17 +20,18 @@ const Heading = styled.h1`
 `;
 
 export default class Home extends Component {
+    
+    setSelected(positionName) {
+        this.setState({
+            selected: positionName
+        });
+    }
+    
     render() {
         return (
             <Container>
                 <Heading>Interview</Heading>
-                <Dropdown>
-                    <MenuItem value={'Sales Associate'}>Sales Associate</MenuItem>
-                    <MenuItem value={'Graphics Designer'}>Graphics Designer</MenuItem>
-                    <MenuItem value={'Backend Engineer'}>Backend Engineer</MenuItem>
-                    <MenuItem value={'Frontend Engineer'}>Frontend Engineer</MenuItem>
-                    <MenuItem value={'Data Science'}>Data Science</MenuItem>
-                </Dropdown>
+                <Dropdown callback={(positionName) => this.setSelected(positionName)}/>
                 <br></br>
                 <GoButton variant="contained" color="primary">Let's Go</GoButton>
             </Container>
