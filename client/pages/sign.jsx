@@ -8,7 +8,8 @@ export default class sign extends Component {
 
     static async getInitialProps({ query }) {
         return {
-            interviewId: query.interviewId
+            interviewId: query.interviewId,
+            intervieweeId: query.intervieweeId
         }
     }
 
@@ -35,6 +36,7 @@ export default class sign extends Component {
 
     bookInterview() {
         const requestBody = {
+            "interviewee": this.props.intervieweeId,
             "agreement": {
                 "nda": this.state.nda,
                 "tou": this.state.tou,
