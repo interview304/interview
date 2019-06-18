@@ -41,3 +41,14 @@ func (interviewee *Interviewee) IntervieweeUpdate(db *sql.DB, id int) error {
 	}
 	return nil
 }
+
+func IntervieweeGet(db *sql.DB, id int) (*Interviewee, error) {
+	query := fmt.Sprintf(`SELECT * FROM Interviewee WHERE (id = %d)`, id)
+	row := db.QueryRow(query)
+	var interviewee Interviewee
+	if err := row.Scan(&interviewee.ID, &interviewee.Phone, &interviewee.Name, &interviewee.Status, 
+		&interviewee.Address, &interviewee.Age, &interviewee.Email); err != nil {
+		return nil, err
+	}
+	return &interviewee, nil	
+}

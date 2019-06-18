@@ -30,6 +30,7 @@ func (app *App) Initialize(dbname, username, password string) error {
 func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/interviewee", app.IntervieweeCreateUser).Methods("POST")
 	app.Router.HandleFunc("/interviewee/{id}", app.IntervieweeUpdateInfo).Methods("PUT")
+	app.Router.HandleFunc("/interviewee/{id}", app.IntervieweeGetInfo).Methods("GET")
 	app.Router.HandleFunc("/interviewee/{id}", app.PreflightHandler).Methods("OPTIONS")
 	app.Router.HandleFunc("/difficulty/{id}", app.GetQuestionDifficultyHandler).Methods("GET")
 	app.Router.HandleFunc("/interview/{start}/{end}", app.GetInterviewsHandler).Methods("GET")

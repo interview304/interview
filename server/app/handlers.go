@@ -115,6 +115,24 @@ func (app *App) IntervieweeUpdateInfo(writer http.ResponseWriter, request *http.
 	respondWithJSON(writer, http.StatusOK, map[string]string{"updated": "success"})
 }
 
+func (app *App) IntervieweeGetInfo(writer http.ResponseWriter, request *http.Request) {
+
+	vars := mux.Vars(request)
+	intervieweeId := vars["id"]
+	id, err := strconv.Atoi(intervieweeId)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+
+	interviewee, err := models.IntervieweeGet(app.DB, id)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interviewee)
+}
+
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	response, _ := json.Marshal(payload)
 	setHeader(w)
