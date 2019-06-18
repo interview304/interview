@@ -20,9 +20,9 @@ INSERT INTO Questions VALUES(4, 'What does CSS stand for?', 'easy', 'technical',
 -- IMPORTANT: when making any changes to position please update the dropdown in index.jsx 
 INSERT INTO Position VALUES(0, 'Sales Associate', 'Sales', 'Full time');
 INSERT INTO Position VALUES(1, 'Graphics Designer', 'Marketing', 'Full time');
-INSERT INTO Position VALUES(2, 'Senior Backend Engineer', 'Software', 'Full time');
-INSERT INTO Position VALUES(3, 'Junior Frontend Engineer', 'Software', 'Full time');
-INSERT INTO Position VALUES(4, 'Junior Data Science', 'Software','Internship');
+INSERT INTO Position VALUES(2, 'Backend Engineer', 'Software', 'Full time');
+INSERT INTO Position VALUES(3, 'Frontend Engineer', 'Software', 'Full time');
+INSERT INTO Position VALUES(4, 'Data Science', 'Software','Internship');
 
 INSERT INTO Location VALUES('0', '0');
 INSERT INTO Location VALUES('1234 Fifth Street Vancouver, BC, V6Z 3B7', 'a');
