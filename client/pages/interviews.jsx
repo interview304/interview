@@ -6,7 +6,7 @@ import Router from 'next/router'
 export default class Interviews extends Component {
 
     static async getInitialProps({ query }) {
-        // query will be "yyyy-dd-mm"
+        // query.date will be "yyyy-dd-mm"
         const start = query.date + " 00:00:00";
         const end = query.date + " 23:59:59";
         const interviews = await fetch("http://localhost:8080/interview/" + start + "/" + end, {
@@ -63,7 +63,7 @@ class Interview extends Component {
 
     render() {
         return (
-            <p onClick={() => this.handleClick(this.props.value.start)}>{this.props.value.start}</p>
+            <p onClick={() => this.handleClick(this.props.value.id)}>{this.props.value.start}</p>
         )
     }
 }
