@@ -26,6 +26,26 @@ type BookedInterview struct {
 	IntervieweeID int    `json:"interviewee"`
 }
 
+func GetAllInterviews(db *sql.DB) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available`)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+
+}
+
 func GetInterviews(db *sql.DB, start, end, position string) ([]AvailableInterview, error) {
 	query := fmt.Sprintf(`SELECT * FROM Available a, Position p
 	 WHERE (a.start_time BETWEEN '%s' AND '%s')
