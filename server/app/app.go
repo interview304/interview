@@ -28,9 +28,6 @@ func (app *App) Initialize(dbname, username, password string) error {
 }
 
 func (app *App) setupHandlers() {
-	app.Router.HandleFunc("/", app.ExampleGetAllRowsHandler).Methods("GET")
-	app.Router.HandleFunc("/", app.ExampleInsertRowHandler).Methods("POST")
-	app.Router.HandleFunc("/{id}", app.ExampleDeleteRowByIdHandler).Methods("DELETE")
 	app.Router.HandleFunc("/interviewee", app.IntervieweeCreateUser).Methods("POST")
 	app.Router.HandleFunc("/interviewee/{id}", app.IntervieweeUpdateInfo).Methods("PUT")
 	app.Router.HandleFunc("/interviewee/{id}", app.PreflightHandler).Methods("OPTIONS")
