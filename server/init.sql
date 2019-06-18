@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Duration (
 CREATE TABLE IF NOT EXISTS Questions (
 	id SERIAL PRIMARY KEY,
 	question TEXT UNIQUE,
-	difficulty TEXT,
+	difficulty Float,
 	type TEXT,
 	answer TEXT
 );
