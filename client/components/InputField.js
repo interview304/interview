@@ -29,7 +29,7 @@ export default function InputField(props) {
     <Row>
       <Input
         label={props.label}
-        value={values.input}
+        value={values.input === "" && props.default? props.default : values.input}
         onChange={handleChange("input")}
         margin="normal"
       />

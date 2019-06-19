@@ -8,15 +8,16 @@ const Container = styled.form`
 
 const Form = props => (
   <Container>
-    <Input onChange={props.setValue} jsonLabel="name" label="Name" />
-    <Input onChange={props.setValue} jsonLabel="email" label="Email" />
+    <Input default={props.interviewee.name} onChange={props.setValue} jsonLabel="name" label="Name" />
+    <Input default={props.interviewee.email} onChange={props.setValue} jsonLabel="email" label="Email" />
     <Input
+    default={props.interviewee.phone_number}
       onChange={props.setValue}
       jsonLabel="phone_number"
       label="Phone Number"
     />
-    <Input onChange={props.setValue} jsonLabel="age" label="Age" />
-    <Input onChange={props.setValue} jsonLabel="address" label="Address" />
+    <Input default={props.interviewee.age} onChange={props.setValue} jsonLabel="age" label="Age" />
+    <Input default={props.interviewee.address} onChange={props.setValue} jsonLabel="address" label="Address" />
   </Container>
 );
 
