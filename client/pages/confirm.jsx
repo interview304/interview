@@ -13,21 +13,21 @@ import '../public/styles/confirm.css';
 import { CardContent } from '@material-ui/core';
 
 export default class confirm extends Component {
-    
+
     static async getInitialProps({ query }) {
         let interview;
-        const interviewPromise = fetch("http://localhost:8080/interview/" + query.id , {
+        const interviewPromise = fetch("http://localhost:8080/interview/id/" + query.interviewId , {
             method: "GET"
         }).then(async response => {
-            data = await response.json();
+            let data = await response.json();
             interview = data;
         });
 
         let interviewee;
-        const intervieweePromise = fetch("http://localhost:8080/interviewee/" + query.id , {
+        const intervieweePromise = fetch("http://localhost:8080/interviewee/" + query.intervieweeId , {
             method: "GET"
         }).then(async response => {
-            data = await response.json();
+            let data = await response.json();
             interviewee = data;
         });
 
@@ -42,6 +42,40 @@ export default class confirm extends Component {
             }
         })
     }
+    getDate() {
+        let date =  this.props.interview.start.substring(0,10);
+        return date;
+    }
+
+    getTime() {
+        let start = this.formatTime(this.props.interview.end.substring(11,19));
+        let end = this.formatTime(this.props.interview.end.substring(11,19));
+        
+        return start + ' - ' + end;
+    }
+
+    formatTime(time) {
+        // Check correct time format and split into components
+        time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+      
+        if (time.length > 1) {
+          time = time.slice (1);
+          time.splice(-1);
+          time[5] = +time[0] < 12 ? ' am' : ' pm';
+          time[0] = +time[0] % 12 || 12;
+        }
+        return time.join ('');
+    }
+
+    gotoEditPage() {
+        //Router.push("/interviews" + );
+        console.log("editpage")
+    }
+
+    gotoSignPage() {
+        Router.push("/sign?interviewId=" + this.props.interview.id + "&intervieweeId=" + this.props.interviewee.id);
+    }
+    
     render() {
         return (
             <div className="centerBody">
@@ -61,6 +95,7 @@ export default class confirm extends Component {
                         <Card className="card" pb={2}>
                             <CardContent>
                             <Typography variant="h6" className="detailsText" fontWeight="700">Interview Details</Typography>
+                            <hr/>
                             <Grid
                                 container
                                 direction="row"
@@ -72,7 +107,7 @@ export default class confirm extends Component {
                                     <Typography variant="button" className="detailName">Date</Typography>
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
+                                    <Typography variant="body2" className="detailName">{this.getDate()}</Typography>
                                 </Grid>
                             </Grid>
                             <Grid
@@ -86,78 +121,7 @@ export default class confirm extends Component {
                                     <Typography variant="button" className="detailName">Time</Typography>
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems = "center"
-                            >
-                                <Grid item xs={1}></Grid>
-                                <Grid item xs={3}>
-                                    <Typography variant="button" className="detailName">Location</Typography>
-                                </Grid>
-                                <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
-                                </Grid>
-                            </Grid>
-                            <Typography variant="h6" className="detailsText" fontWeight="700">Personal Information</Typography>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems = "center"
-                            >
-                                <Grid item xs={1}></Grid>
-                                <Grid item xs={3}>
-                                    <Typography variant="button" className="detailName">Name</Typography>
-                                </Grid>
-                                <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems = "center"
-                            >
-                                <Grid item xs={1}></Grid>
-                                <Grid item xs={3}>
-                                    <Typography variant="button" className="detailName">Phone</Typography>
-                                </Grid>
-                                <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems = "center"
-                            >
-                                <Grid item xs={1}></Grid>
-                                <Grid item xs={3}>
-                                    <Typography variant="button" className="detailName">Birth date</Typography>
-                                </Grid>
-                                <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid
-                                container
-                                direction="row"
-                                justify="center"
-                                alignItems = "center"
-                            >
-                                <Grid item xs={1}></Grid>
-                                <Grid item xs={3}>
-                                    <Typography variant="button" className="detailName">Email</Typography>
-                                </Grid>
-                                <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
+                                    <Typography variant="body2" className="detailName">{this.getTime()}</Typography>
                                 </Grid>
                             </Grid>
                             <Grid
@@ -171,27 +135,111 @@ export default class confirm extends Component {
                                     <Typography variant="button" className="detailName">Address</Typography>
                                 </Grid>
                                 <Grid item xs={7}>
-                                    <Typography variant="body2" className="detailName">hi</Typography>
+                                    <Typography variant="body2" className="detailName">{this.props.interview.address}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Room</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interview.room}</Typography>
+                                </Grid>
+                            </Grid>
+                            <br/><br/>
+                            <Typography variant="h6" className="detailsText" fontWeight="700">Personal Information</Typography>
+                            <hr/>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Name</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interviewee.name}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Phone</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interviewee.phone_number}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Age</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interviewee.age}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Email</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interviewee.email}</Typography>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems = "center"
+                            >
+                                <Grid item xs={1}></Grid>
+                                <Grid item xs={3}>
+                                    <Typography variant="button" className="detailName">Address</Typography>
+                                </Grid>
+                                <Grid item xs={7}>
+                                    <Typography variant="body2" className="detailName">{this.props.interviewee.address}</Typography>
                                 </Grid>
                             </Grid>
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid
-                        container
-                        direction="row"
-                    >
-                        <Grid tem xs={2}></Grid>
-                        <Grid item xs={3}>
-                        <Button variant="outlined" color="primary">Go Back to Edit</Button>
-                        </Grid>
-                        <Grid tem xs={2}></Grid>
-                        <Grid item xs={3} jutify="flex-end">
-                        <Button variant="outlined" color="primary">Looks Great!</Button>
-                        </Grid>
-                        <Grid tem xs={2}></Grid>
+                    <Grid item xs={12}>
+                    <Button onClick={() => { this.gotoEditPage() }} variant="outlined" color="primary">
+                        Go Back to Edit
+                    </Button>
+                    <Button onClick={() => { this.gotoSignPage() }} variant="outlined" color="primary">
+                        Looks Great!
+                    </Button>
+                    {/* <Button className="button" variant="outlined" color="primary">Go Back to Edit</Button>
+                    <Button className="button" variant="outlined" color="primary">Looks Great!</Button> */}
                     </Grid>
                 </Grid>
+                
                 
             </div>
         )

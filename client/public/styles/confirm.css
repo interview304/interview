@@ -3,9 +3,13 @@
     
 }
 .detailsText {
-    padding: 3% 1%;
+    padding: 3% 1% 0 1%;
 }
 
 .detailName {
     margin: auto auto 3% auto;
+}
+
+.button {
+    margin: 0 20px 0 20px;
 }
