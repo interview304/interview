@@ -37,7 +37,7 @@ export default class Home extends Component {
         <Heading>Interview</Heading>
         <Dropdown callback={positionName => this.setSelected(positionName)} />
         <br />
-        <GoButton onClick={() => { this.gotoTablePage() }} variant="contained" color="primary">
+        <GoButton onClick={() => { this.gotoTablePage() }} variant="outlined" color="secondary">
           Let's Go
         </GoButton>
       </Container>
