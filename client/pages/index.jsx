@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import PositionDropdown from "../components/PositionDropdown";
+import Router from 'next/router';
 
 const Container = styled.div`
   text-align: center;
@@ -26,13 +27,17 @@ export default class Home extends Component {
     });
   }
 
+  gotoTablePage() {
+    Router.push("/interviews?position=" + this.state.selected);
+  }
+
   render() {
     return (
       <Container>
         <Heading>Interview</Heading>
         <Dropdown callback={positionName => this.setSelected(positionName)} />
         <br />
-        <GoButton variant="contained" color="primary">
+        <GoButton onClick={() => { this.gotoTablePage() }} variant="contained" color="primary">
           Let's Go
         </GoButton>
       </Container>
