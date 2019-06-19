@@ -67,7 +67,7 @@ export default class Interviews extends Component {
     }
 
     handleInterviewee() {
-        Router.push("/form?interview=" + this.state.selectedInterview)
+        Router.push("/form?interviewId=" + this.state.selectedInterview)
     }
 
     setShowLocation(event) {
