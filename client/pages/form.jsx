@@ -25,7 +25,8 @@ export default class Home extends Component {
   createInterviewee = () => {
     const requestBody = {
       ...this.state,
-      status: "Unemployed"
+      status: "Unemployed",
+      age: parseInt(this.state.age, 10)
     };
 
     const intervieweePromise = fetch("http://localhost:8080/interviewee", {
@@ -51,7 +52,7 @@ export default class Home extends Component {
     return (
       <Container>
         <h1>Please Fill Out Your Information</h1>
-        <Form callback={this.setValue} />
+        <Form setValue={this.setValue} />
         <Button
           variant="contained"
           onClick={this.createInterviewee}
