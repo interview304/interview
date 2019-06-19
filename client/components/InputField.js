@@ -21,7 +21,7 @@ export default function InputField(props) {
   const handleChange = input => event => {
     setValues({ ...values, [input]: event.target.value });
     const value = {};
-    value[props.label] = event.target.value;
+    value[props.jsonLabel] = event.target.value;
     props.onChange(value); 
   };
 
