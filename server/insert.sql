@@ -16,6 +16,9 @@ INSERT INTO Location VALUES('1234 Fifth Street Vancouver, BC, V6Z 3B7', 'a');
 INSERT INTO Location VALUES('5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
 INSERT INTO Location VALUES('1234 Fifth Street Vancouver, BC, V6Z 3B7', 'c');
 INSERT INTO Location VALUES('5678 Ninth Street Vancouver, BC, V6Z 3B7', 'c');
+INSERT INTO Location VALUES('800 Junior road Vancouver, BC, V6T 2J1', 'M');
+INSERT INTO Location VALUES('5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
+
 
 INSERT INTO Provides_Amenities VALUES(0, 'accessibility', 'translator', '1234 Fifth Street Vancouver, BC, V6Z 3B7','a');
 INSERT INTO Provides_Amenities VALUES(1, 'equipment', 'projector', '1234 Fifth Street Vancouver, BC, V6Z 3B7','a');
@@ -30,6 +33,8 @@ INSERT INTO Available VALUES(8, '2019-05-25 15:00:00', '2019-05-25 16:00:00', 3,
 INSERT INTO Available VALUES(9, '2019-05-25 16:00:00', '2019-05-25 17:00:00', 0, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
 INSERT INTO Available VALUES(932, '2019-05-29 16:00:00', '2019-05-29 17:00:00', 2, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
 INSERT INTO Available VALUES(933, '2019-05-27 16:00:00', '2019-05-27 17:00:00', 2, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
+INSERT INTO Available VALUES(934, '2019-05-27 18:00:00', '2019-05-27 19:00:00', 2, '5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
+INSERT INTO Available VALUES(935, '2019-05-27 19:00:00', '2019-05-27 20:00:00', 2, '800 Junior road Vancouver, BC, V6T 2J1', 'M');
 
 INSERT INTO Interviewee VALUES(0,'0000000000','0','0','0',0,'0');
 INSERT INTO Interviewee VALUES(1,'604-123-1234','Felix','reviewing','600 Pine St, #403 Seattle, WA 98101',23,'felix@gmail.com');
@@ -74,6 +79,10 @@ INSERT INTO Contains VALUES(3, 0, 3);
 INSERT INTO Contains VALUES(4, 0, 4);
 INSERT INTO Contains VALUES(0, 933, 0);
 INSERT INTO Contains VALUES(0, 932, 3);
+INSERT INTO Contains VALUES(0, 934, 1);
+INSERT INTO Contains VALUES(0, 935, 3);
+INSERT INTO Contains VALUES(0, 934, 2);
+INSERT INTO Contains VALUES(0, 935, 1);
 
 
 

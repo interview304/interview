@@ -6,7 +6,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InterviewTable from '../components/InterviewTable';
+import styled from "styled-components";
 
+
+const Container = styled.div`
+    text-align: center;
+    margin: auto;
+`;
 
 export default class Interviews extends Component {
 
@@ -90,23 +96,23 @@ export default class Interviews extends Component {
         dates = [...new Set(dates)]; // get only unique dates
 
         const interviews = dates.map(date => {
-            return <Button onClick={() => this.clickHandler(date)}>{date}</Button>
+            return <Button disabled={this.state.date === date ? true : false} variant="outlined" color="primary" onClick={() => this.clickHandler(date)}>{date}</Button>
         });
         return (
-            <div>
+            <Container>
                 <h2>Pick a Time and Location</h2>
 
                 <h3>Date selected: {this.props.date}</h3>
 
                 <div>{interviews}</div>
-                <FormGroup row>
+                <FormGroup style={{ display: "block" }} row>
                     <FormControlLabel
                         control={
                             <Checkbox onChange={(event) => this.setShowLocation(event)} />
                         } label="Show location"
                     />
                 </FormGroup>
-                <Button onClick={() => { this.generateTable() }}>
+                <Button variant="outlined" color="primary" onClick={() => { this.generateTable() }}>
                     Get Interviews!
                 </Button>
 
@@ -119,10 +125,10 @@ export default class Interviews extends Component {
 
                 <h4>The interview you selected has difficulty: {this.state.difficulty}</h4>
 
-                <Button onClick={() => { this.handleInterviewee() }}>
-                    Go
+                <Button variant="outlined" color="secondary" onClick={() => { this.handleInterviewee() }}>
+                    Next
                 </Button>
-            </div >
+            </Container >
         )
     }
 }

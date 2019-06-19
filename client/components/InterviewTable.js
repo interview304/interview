@@ -4,12 +4,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import styled from "styled-components";
+import Button from '@material-ui/core/Button'
 
-
-const InterviewRow = styled(TableRow)`
-    cursor: pointer;
-`;
 
 export default class InterviewTable extends Component {
     date;
@@ -98,6 +94,14 @@ export default class InterviewTable extends Component {
         }
     }
 
+    setSelected(interviewId) {
+        this.setState({
+            ...this.state,
+            selected: interviewId
+        });
+        this.props.callback(interviewId);
+    }
+
     render() {
         if (this.props.clicked) {
             if (this.props.location) {
@@ -105,6 +109,7 @@ export default class InterviewTable extends Component {
                     <Table>
                         <TableHead>
                             <TableRow>
+                                <TableCell>Select Interview</TableCell>
                                 <TableCell>Interview start timestamp</TableCell>
                                 <TableCell>Interview end timestamp</TableCell>
                                 <TableCell>Interview Address</TableCell>
@@ -114,12 +119,19 @@ export default class InterviewTable extends Component {
                         <TableBody>
                             {
                                 this.state.interviews.map(interview => (
-                                    <InterviewRow onClick={() => { this.props.callback(interview.id) }}>
+                                    <TableRow >
+                                        <TableCell>
+                                            <Button onClick={() => { this.setSelected(interview.id) }}
+                                                disabled={this.state.selected === interview.id}
+                                                variant="outlined" color="primary" >
+                                                Select
+                                            </Button>
+                                        </TableCell>
                                         <TableCell>{interview.start}</TableCell>
                                         <TableCell>{interview.end}</TableCell>
                                         <TableCell>{interview.address}</TableCell>
                                         <TableCell>{interview.room}</TableCell>
-                                    </InterviewRow>
+                                    </TableRow>
                                 ))
                             }
                         </TableBody>
@@ -130,17 +142,25 @@ export default class InterviewTable extends Component {
                     <Table>
                         <TableHead>
                             <TableRow>
+                                <TableCell>Select Interview</TableCell>
                                 <TableCell>Interview start timestamp</TableCell>
                                 <TableCell>Interview end timestamp</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
-                                this.state.interviews.map(interview => (
-                                    <InterviewRow onClick={() => { this.props.callback(interview.id) }}>
+                                this.state.interviews.map((interview, index) => (
+                                    <TableRow>
+                                        <TableCell>
+                                            <Button onClick={() => { this.setSelected(interview.id) }}
+                                                disabled={this.state.selected === interview.id}
+                                                variant="outlined" color="primary" >
+                                                Select
+                                            </Button>
+                                        </TableCell>
                                         <TableCell>{interview.start}</TableCell>
                                         <TableCell>{interview.end}</TableCell>
-                                    </InterviewRow>
+                                    </TableRow>
                                 ))
                             }
                         </TableBody>
