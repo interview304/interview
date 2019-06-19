@@ -1,16 +1,4 @@
 -- Contains all init table statements
-CREATE TABLE IF NOT EXISTS Role (
-	role TEXT PRIMARY KEY,
-	average_salary INT
-);
-
-CREATE TABLE IF NOT EXISTS Duration (
-	start_time TIMESTAMP,
-	end_time TIMESTAMP,
-	duration INT,
-	PRIMARY KEY (start_time, end_time)
-);
-
 CREATE TABLE IF NOT EXISTS Questions (
 	id SERIAL PRIMARY KEY,
 	question TEXT UNIQUE,
