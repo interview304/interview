@@ -81,6 +81,18 @@ func GetInterviews(db *sql.DB, start, end, position string) ([]AvailableIntervie
 	return interviews, nil
 }
 
+func GetMinimumTime(db *sql.DB, start, end, position string) (*AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT MIN(a.start_time) as start_time FROM Available a, Position p
+	 WHERE (a.start_time BETWEEN '%s' AND '%s')
+	AND (end_time BETWEEN '%s' AND '%s') AND (a.position_id = p.id) AND (p.name = '%s')`, start, end, start, end, position)
+	rows := db.QueryRow(query)
+	var interview AvailableInterview
+	if err := rows.Scan(&interview.Start); err != nil {
+		return nil, err
+	}
+	return &interview, nil
+}
+
 func GetInterviewsWithLocation(db *sql.DB, start, end, position string) ([]AvailableInterview, error) {
 	query := fmt.Sprintf(`SELECT a.id, a.start_time, a.end_time, a.position_id
 	, a.address, a.room_name FROM Available a, Position p

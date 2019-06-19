@@ -78,6 +78,25 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 	respondWithJSON(writer, http.StatusOK, interviews)
 }
 
+func (app *App) GetMinimumTimeHandler(writer http.ResponseWriter, request *http.Request) {
+
+	vars := mux.Vars(request)
+	start := vars["start"]
+	end := vars["end"]
+	position := vars["position"]
+
+	startTime, _ := url.QueryUnescape(start)
+	endTime, _ := url.QueryUnescape(end)
+	positionName, _ := url.QueryUnescape(position)
+
+	interview, err := models.GetMinimumTime(app.DB, startTime, endTime, positionName)
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+	respondWithJSON(writer, http.StatusOK, interview)
+}
+
 func (app *App) GetInterviewsWithLocationHandler(writer http.ResponseWriter, request *http.Request) {
 
 	vars := mux.Vars(request)

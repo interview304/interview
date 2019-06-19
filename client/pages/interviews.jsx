@@ -52,6 +52,18 @@ export default class Interviews extends Component {
             ...this.state,
             date: value
         });
+        const start = value + " 00:00:00";
+        const end = value + " 23:59:59"
+        fetch("http://localhost:8080/interview/min/" + start + "/" + end + "/" + this.props.position, {
+            method: "GET"
+        }).then(response => {
+            response.json().then(data => {
+                this.setState({
+                    ...this.state,
+                    earliest: data.start
+                });
+            });
+        });
     }
 
     handleInterviewee() {
@@ -102,9 +114,9 @@ export default class Interviews extends Component {
             <Container>
                 <h2>Pick a Time and Location</h2>
 
-                <h3>Date selected: {this.props.date}</h3>
-
                 <div>{interviews}</div>
+
+                <h4>Earliest interview in your selected time starts at: {this.state.earliest}</h4>
                 <FormGroup style={{ display: "block" }} row>
                     <FormControlLabel
                         control={
