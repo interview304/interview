@@ -22,14 +22,16 @@ export default function InputField(props) {
     setValues({ ...values, [input]: event.target.value });
     const value = {};
     value[props.jsonLabel] = event.target.value;
-    props.onChange(value); 
+    props.onChange(value);
   };
 
   return (
     <Row>
       <Input
         label={props.label}
-        value={values.input === "" && props.default? props.default : values.input}
+        value={
+          values.input === "" && props.default ? props.default : values.input
+        }
         onChange={handleChange("input")}
         margin="normal"
       />
