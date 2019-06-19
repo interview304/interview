@@ -71,6 +71,16 @@ export default class Interviews extends Component {
             ...this.state,
             selectedInterview: interviewId
         });
+        fetch("http://localhost:8080/difficulty/" + interviewId, {
+            method: "GET"
+        }).then(response => {
+            response.json().then(data => {
+                this.setState({
+                    ...this.state,
+                    difficulty: data.difficulty
+                });
+            });
+        });
     }
 
     render() {
@@ -106,6 +116,8 @@ export default class Interviews extends Component {
                     location={this.state.location}
                     callback={this.clickInterview}
                 />
+
+                <h4>The interview you selected has difficulty: {this.state.difficulty}</h4>
 
                 <Button onClick={() => { this.handleInterviewee() }}>
                     Go

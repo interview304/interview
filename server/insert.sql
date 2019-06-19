@@ -72,4 +72,8 @@ INSERT INTO Contains VALUES(1, 0, 1);
 INSERT INTO Contains VALUES(2, 0, 2);
 INSERT INTO Contains VALUES(3, 0, 3);
 INSERT INTO Contains VALUES(4, 0, 4);
+INSERT INTO Contains VALUES(0, 933, 0);
+INSERT INTO Contains VALUES(0, 932, 3);
+
+
 
