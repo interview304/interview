@@ -4,9 +4,7 @@ import Button from '@material-ui/core/Button'
 import Router from 'next/router'
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Icon from '@material-ui/core/Icon';
 
 
 import '../public/styles/confirm.css';
@@ -69,7 +67,6 @@ export default class confirm extends Component {
 
     gotoEditPage() {
         //Router.push("/interviews" + );
-        console.log("editpage")
     }
 
     gotoSignPage() {
@@ -229,14 +226,12 @@ export default class confirm extends Component {
                         </Card>
                     </Grid>
                     <Grid item xs={12}>
-                    <Button onClick={() => { this.gotoEditPage() }} variant="outlined" color="primary">
-                        Go Back to Edit
-                    </Button>
-                    <Button onClick={() => { this.gotoSignPage() }} variant="outlined" color="primary">
-                        Looks Great!
-                    </Button>
-                    {/* <Button className="button" variant="outlined" color="primary">Go Back to Edit</Button>
-                    <Button className="button" variant="outlined" color="primary">Looks Great!</Button> */}
+                        <Button onClick={() => { this.gotoEditPage() }} variant="outlined" color="primary">
+                            Go Back to Edit
+                        </Button>
+                        <Button onClick={() => { this.gotoSignPage() }} variant="outlined" color="primary">
+                            Looks Great!
+                        </Button>
                     </Grid>
                 </Grid>
                 
