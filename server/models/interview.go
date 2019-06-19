@@ -47,7 +47,9 @@ func GetAllInterviews(db *sql.DB) ([]AvailableInterview, error) {
 }
 
 func GetInterviewById(db *sql.DB, interviewID int) (*AvailableInterview, error) {
-	query := fmt.Sprintf(`SELECT * FROM Available WHERE id = %d`, interviewID)
+	query := fmt.Sprintf(`SELECT * FROM Available WHERE id = %d
+		UNION
+		SELECT id, start_time, end_time, position_id, address, room_name FROM Booked WHERE id = %d`, interviewID, interviewID)
 
 	row := db.QueryRow(query)
 
