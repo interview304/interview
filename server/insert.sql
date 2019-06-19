@@ -1,16 +1,3 @@
--- Insert statements
-INSERT INTO Role VALUES('Marketing Manager', 77000);
-INSERT INTO Role VALUES('Frontend Engineer', 70000);
-INSERT INTO Role VALUES('Backend Engineer', 80000);
-INSERT INTO Role VALUES('UI UX Designer', 63000);
-INSERT INTO Role VALUES('Senior Software Engineer', 102000);
-
-INSERT INTO Duration VALUES('2000-02-02 2:00:00','2000-02-02 2:00:00',1);
-INSERT INTO Duration VALUES('2019-05-25 10:00:00','2019-05-25 11:00:00',1);
-INSERT INTO Duration VALUES('2019-05-25 14:00:00','2019-05-25 15:00:00',1);
-INSERT INTO Duration VALUES('2019-05-25 15:00:00','2019-05-25 16:00:00',1);
-INSERT INTO Duration VALUES('2019-05-25 16:00:00','2019-05-25 17:00:00',1);
-
 INSERT INTO Questions VALUES(0, 'What school do you go to?', 1.0, 'general', 'Applicant should indicate school & provide some background info.');
 INSERT INTO Questions VALUES(1, 'What is the fastest possible runtime of a comparison based sorting algorithm?', 2.0, 'technical', 'O(nlog(n))');
 INSERT INTO Questions VALUES(2, 'What is the difference between a thread and a process?', 3.0, 'technical', 'A thread is a path of execution within a process and a process can contain multiple threads');
@@ -41,6 +28,8 @@ INSERT INTO Available VALUES(4, '2019-05-25 10:00:00', '2019-05-25 11:00:00', 1,
 INSERT INTO Available VALUES(2, '2019-05-25 14:00:00', '2019-05-25 15:00:00', 2, '1234 Fifth Street Vancouver, BC, V6Z 3B7', 'a');
 INSERT INTO Available VALUES(8, '2019-05-25 15:00:00', '2019-05-25 16:00:00', 3, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
 INSERT INTO Available VALUES(9, '2019-05-25 16:00:00', '2019-05-25 17:00:00', 0, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
+INSERT INTO Available VALUES(932, '2019-05-29 16:00:00', '2019-05-29 17:00:00', 2, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
+INSERT INTO Available VALUES(933, '2019-05-27 16:00:00', '2019-05-27 17:00:00', 2, '5678 Ninth Street Vancouver, BC, V6Z 3B7', 'b');
 
 INSERT INTO Interviewee VALUES(0,'0000000000','0','0','0',0,'0');
 INSERT INTO Interviewee VALUES(1,'604-123-1234','Felix','reviewing','600 Pine St, #403 Seattle, WA 98101',23,'felix@gmail.com');
