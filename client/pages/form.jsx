@@ -8,7 +8,7 @@ const Container = styled.div`
   text-align: center;
 `;
 
-export default class Home extends Component {
+export default class FormPage extends Component {
   static async getInitialProps({ query }) {
     return {
       interviewId: query.interviewId
@@ -41,7 +41,7 @@ export default class Home extends Component {
 
     intervieweePromise.then(interviewee => {
       Router.push(
-        "/confirm?interviewId=" +
+        "/edit?interviewId=" +
           this.props.interviewId +
           "&intervieweeId=" +
           interviewee.id
@@ -52,11 +52,11 @@ export default class Home extends Component {
     return (
       <Container>
         <h1>Please Fill Out Your Information</h1>
-        <Form setValue={this.setValue} />
+        <Form interviewee={{}} setValue={this.setValue} />
         <Button
-          variant="contained"
           onClick={this.createInterviewee}
-          color="primary"
+          color="secondary"
+          variant="outlined"
         >
           Submit
         </Button>
