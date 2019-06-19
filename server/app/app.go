@@ -42,6 +42,7 @@ func (app *App) setupHandlers() {
 	app.Router.HandleFunc("/interview/{id}", app.DeleteInterviewHandler).Methods("DELETE")
 	app.Router.HandleFunc("/interview/{id}", app.PreflightHandler).Methods("OPTIONS")
 	app.Router.HandleFunc("/interview/{id}", app.BookInterview).Methods("POST")
+	app.Router.HandleFunc("/interview/{id}", app.GetInterviewById).Methods("GET")
 	app.Router.HandleFunc("/interviewer", app.GetInterviewer).Methods("GET")
 }
 
