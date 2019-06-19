@@ -26,9 +26,45 @@ type BookedInterview struct {
 	IntervieweeID int    `json:"interviewee"`
 }
 
-func GetInterviews(db *sql.DB, start, end string) ([]AvailableInterview, error) {
-	query := fmt.Sprintf(`SELECT * FROM Available WHERE (start_time BETWEEN '%s' AND '%s')
-	AND (end_time BETWEEN '%s' AND '%s')`, start, end, start, end)
+func GetAllInterviews(db *sql.DB) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available`)
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	interviews := []AvailableInterview{}
+	for rows.Next() {
+		var interview AvailableInterview
+		if err := rows.Scan(&interview.ID, &interview.Start, &interview.End,
+			&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+			return nil, err
+		}
+		interviews = append(interviews, interview)
+	}
+	return interviews, nil
+
+}
+
+func GetInterviewById(db *sql.DB, interviewID int) (*AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT * FROM Available WHERE id = %d`, interviewID)
+
+	row := db.QueryRow(query)
+
+	var interview AvailableInterview
+	if err := row.Scan(&interview.ID, &interview.Start, &interview.End,
+		&interview.PositionID, &interview.Address, &interview.Room); err != nil {
+		return nil, err
+	}
+
+	return &interview, nil
+}
+
+func GetInterviews(db *sql.DB, start, end, position string) ([]AvailableInterview, error) {
+	query := fmt.Sprintf(`SELECT a.id, a.start_time, a.end_time, a.position_id
+	, a.address, a.room FROM Available a, Position p
+	 WHERE (a.start_time BETWEEN '%s' AND '%s')
+	AND (end_time BETWEEN '%s' AND '%s') AND (a.position_id = p.id) AND (p.name = '%s')`, start, end, start, end, position)
 	rows, err := db.Query(query)
 	if err != nil {
 		return nil, err

@@ -51,9 +51,7 @@ func (app *App) GetInterviewsWithEveryQuestionHandler(writer http.ResponseWriter
 }
 
 func (app *App) GetAllInterviews(writer http.ResponseWriter, request *http.Request) {
-	startTime := "2000-01-01 10:00:00"
-	endTime := "2109-05-25 13:00:00"
-	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
+	interviews, err := models.GetAllInterviews(app.DB)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
@@ -66,11 +64,13 @@ func (app *App) GetInterviewsHandler(writer http.ResponseWriter, request *http.R
 	vars := mux.Vars(request)
 	start := vars["start"]
 	end := vars["end"]
+	position := vars["position"]
 
 	startTime, _ := url.QueryUnescape(start)
 	endTime, _ := url.QueryUnescape(end)
+	positionName, _ := url.QueryUnescape(position)
 
-	interviews, err := models.GetInterviews(app.DB, startTime, endTime)
+	interviews, err := models.GetInterviews(app.DB, startTime, endTime, positionName)
 	if err != nil {
 		respondWithError(writer, http.StatusInternalServerError, err)
 		return
@@ -206,4 +206,24 @@ func (app *App) GetInterviewsByPosition(writer http.ResponseWriter, request *htt
 	}
 
 	respondWithJSON(writer, http.StatusOK, interviews)
+}
+func (app *App) GetInterviewById(writer http.ResponseWriter, request *http.Request) {
+	vars := mux.Vars(request)
+
+	id := vars["id"]
+
+	interviewID, err := strconv.Atoi(id)
+	if err != nil {
+		respondWithError(writer, http.StatusBadRequest, err)
+		return
+	}
+
+	interview, err := models.GetInterviewById(app.DB, interviewID)
+
+	if err != nil {
+		respondWithError(writer, http.StatusInternalServerError, err)
+		return
+	}
+
+	respondWithJSON(writer, http.StatusOK, interview)
 }
