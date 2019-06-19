@@ -3,6 +3,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
+import Router from 'next/router';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    text-align: center;
+`;
 
 export default class sign extends Component {
 
@@ -51,14 +57,16 @@ export default class sign extends Component {
             body: JSON.stringify(requestBody)
         }).then(response => {
             response.json().then(data => {
-                console.log("Booked!")
+                if (data.booked === "success") {
+                    Router.push("/done?interviewId=" + this.props.interviewId + "&intervieweeId=" + this.props.intervieweeId);
+                }
             });
         });
     }
 
     render() {
         return (
-            <div>
+            <Container>
                 <h1>Sign Agreement</h1>
 
                 <FormGroup row>
@@ -74,7 +82,7 @@ export default class sign extends Component {
                     />
                 </FormGroup>
                 <Button variant="contained" onClick={() => this.bookInterview()}>Book interview!</Button>
-            </div>
+            </Container>
         )
     }
 }
