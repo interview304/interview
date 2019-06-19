@@ -10,8 +10,8 @@ const Container = styled.div`
 export default class Home extends Component {
   setValue = (value) => {
     this.setState({
-        ...this.state,
-        ...value
+      ...this.state,
+      ...value
     })
   }
   render() {
@@ -25,7 +25,7 @@ export default class Home extends Component {
           <InputField onChange={this.setValue} label="Age" />
           <InputField onChange={this.setValue} label="Address" />
         </form>
-        <Button variant="contained" color="primary">
+        <Button variant="outlined" color="secondary">
           Submit
         </Button>
       </Container>
