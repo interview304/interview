@@ -1,3 +1,11 @@
-body {
-    width: 50%;
+.card {
+    min-width: 65vw;
+    
+}
+.detailsText {
+    padding: 3% 1%;
+}
+
+.detailName {
+    margin: auto auto 3% auto;
 }
