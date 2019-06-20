@@ -102,8 +102,8 @@ export default class InterviewTable extends Component {
         this.props.callback(interviewId);
     }
     getDateTime(ts) {
-        let date = this.getDate();
-        let time = this.getTime();
+        let date = this.getDate(ts);
+        let time = this.getTime(ts);
         return date + " " + time;
     }
 
