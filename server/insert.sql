@@ -6,7 +6,7 @@ INSERT INTO Questions VALUES(3, 'What are some projects you recently worked on?'
 INSERT INTO Questions VALUES(4, 'What does CSS stand for?', 1.0, 'technical', 'Cascading Style Sheet');
 
 -- IMPORTANT: when making any changes to position please update the dropdown in index.jsx 
-INSERT INTO Position VALUES(0, 'Sales Associate', 'Sales', 'Full time');
+INSERT INTO Position VALUES(0, 'DONT SELECT THIS', 'Sales', 'Full time');
 INSERT INTO Position VALUES(1, 'Graphics Designer', 'Marketing', 'Full time');
 INSERT INTO Position VALUES(2, 'Backend Engineer', 'Software', 'Full time');
 INSERT INTO Position VALUES(3, 'Frontend Engineer', 'Software', 'Full time');
