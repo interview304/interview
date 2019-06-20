@@ -10,10 +10,10 @@ Our project creates a portal for interviewees to book interviews with an employe
 
 #### Contributors
 
-- Ariel Cao
-- Ethan Tam
-- Grace Luong
-- Tarik Eshaq
+- Ariel Cao (https://github.com/arieljcao)
+- Ethan Tam (https://github.com/Ethan-Tam)
+- Grace Luong (https://github.com/graceluong)
+- Tarik Eshaq (https://github.com/tarikeshaq)
 
 
 
