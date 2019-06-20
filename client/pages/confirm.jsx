@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 
-import "../public/styles/confirm.css";
 import { CardContent } from "@material-ui/core";
 
 export default class confirm extends Component {
@@ -72,7 +71,12 @@ export default class confirm extends Component {
   }
 
   gotoEditPage() {
-    //Router.push("/interviews" + );
+    Router.push(
+      "/edit?interviewId=" +
+        this.props.interview.id +
+        "&intervieweeId=" +
+        this.props.interviewee.id
+    );
   }
 
   gotoSignPage() {

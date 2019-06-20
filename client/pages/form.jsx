@@ -41,7 +41,7 @@ export default class FormPage extends Component {
 
     intervieweePromise.then(interviewee => {
       Router.push(
-        "/edit?interviewId=" +
+        "/confirm?interviewId=" +
           this.props.interviewId +
           "&intervieweeId=" +
           interviewee.id
