@@ -49,7 +49,6 @@ export default function SimpleSelect(props) {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={"Sales Associate"}>Sales Associate</MenuItem>
           <MenuItem value={"Graphics Designer"}>Graphics Designer</MenuItem>
           <MenuItem value={"Backend Engineer"}>Backend Engineer</MenuItem>
           <MenuItem value={"Frontend Engineer"}>Frontend Engineer</MenuItem>
