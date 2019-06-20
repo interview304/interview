@@ -6,7 +6,7 @@ INSERT INTO Questions VALUES(3, 'What are some projects you recently worked on?'
 INSERT INTO Questions VALUES(4, 'What does CSS stand for?', 1.0, 'technical', 'Cascading Style Sheet');
 
 -- IMPORTANT: when making any changes to position please update the dropdown in index.jsx 
-INSERT INTO Position VALUES(0, 'DONT SELECT THIS', 'Sales', 'Full time');
+INSERT INTO Position VALUES(0, 'Sales Associate', 'Sales', 'Full time');
 INSERT INTO Position VALUES(1, 'Graphics Designer', 'Marketing', 'Full time');
 INSERT INTO Position VALUES(2, 'Backend Engineer', 'Software', 'Full time');
 INSERT INTO Position VALUES(3, 'Frontend Engineer', 'Software', 'Full time');
@@ -30,7 +30,6 @@ INSERT INTO Available VALUES(9, '2019-05-29 16:00:00', '2019-05-29 17:00:00', 2,
 INSERT INTO Available VALUES(10, '2019-05-27 16:00:00', '2019-05-27 17:00:00', 2, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
 INSERT INTO Available VALUES(11, '2019-05-27 18:00:00', '2019-05-27 19:00:00', 2, '5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
 INSERT INTO Available VALUES(12, '2019-05-27 19:00:00', '2019-05-27 20:00:00', 2, '800 Junior Road Vancouver, BC, V6T 2J1', 'M');
-
 INSERT INTO Available VALUES(0, '2000-01-01 00:00:00', '2000-01-01 01:00:00', 0, '0', '0');
 INSERT INTO Available VALUES(5, '2019-07-02 11:00:00', '2019-07-02 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(6, '2019-07-02 14:00:00', '2019-07-02 15:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
@@ -48,7 +47,6 @@ INSERT INTO Available VALUES(21, '2019-07-02 11:00:00', '2019-07-02 12:00:00', 4
 INSERT INTO Available VALUES(22, '2019-07-02 14:00:00', '2019-07-02 15:00:00', 4, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(23, '2019-07-02 15:00:00', '2019-07-02 16:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
 INSERT INTO Available VALUES(24, '2019-07-02 16:00:00', '2019-07-02 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
---
 INSERT INTO Available VALUES(25, '2019-07-03 11:00:00', '2019-07-03 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(26, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(27, '2019-07-03 15:00:00', '2019-07-03 16:00:00', 1, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
@@ -65,7 +63,6 @@ INSERT INTO Available VALUES(37, '2019-07-03 11:00:00', '2019-07-03 12:00:00', 4
 INSERT INTO Available VALUES(38, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 4, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(39, '2019-07-03 15:00:00', '2019-07-03 16:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
 INSERT INTO Available VALUES(40, '2019-07-03 16:00:00', '2019-07-03 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
---
 INSERT INTO Available VALUES(41, '2019-07-04 11:00:00', '2019-07-04 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(42, '2019-07-04 14:00:00', '2019-07-04 15:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(43, '2019-07-04 15:00:00', '2019-07-04 16:00:00', 1, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
@@ -138,13 +135,9 @@ INSERT INTO Contains VALUES(1, 0, 1);
 INSERT INTO Contains VALUES(2, 0, 2);
 INSERT INTO Contains VALUES(3, 0, 3);
 INSERT INTO Contains VALUES(4, 0, 4);
-
 INSERT INTO Contains VALUES(0, 10, 0);
 INSERT INTO Contains VALUES(0, 9, 3);
 INSERT INTO Contains VALUES(0, 11, 1);
 INSERT INTO Contains VALUES(0, 12, 3);
 INSERT INTO Contains VALUES(0, 11, 2);
 INSERT INTO Contains VALUES(0, 12, 1);
-
-
-
