@@ -26,7 +26,7 @@ INSERT INTO Provides_Amenities VALUES(2, 'accessibility', 'wheelchair ramp', '20
 INSERT INTO Provides_Amenities VALUES(3, 'supplies', 'whiteboard eraser', '2053 Main Mall, Vancouver, BC, V6T 1Z2','c');
 INSERT INTO Provides_Amenities VALUES(4, 'supplies', 'stapler', '2053 Main Mall, Vancouver, BC, V6T 1Z2','c');
 
-INSERT INTO Available VALUES(0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0', '0');
+INSERT INTO Available VALUES(0, '2000-01-01 00:00:00', '2000-01-01 01:00:00', 0, '0', '0');
 INSERT INTO Available VALUES(5, '2019-07-02 11:00:00', '2019-07-02 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(6, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Available VALUES(7, '2019-07-04 15:00:00', '2019-07-04 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
@@ -42,7 +42,7 @@ INSERT INTO Interviewee VALUES(2,'604-111-2222','Gordon','reviewing','2621 NE 46
 INSERT INTO Interviewee VALUES(3,'604-333-4444','Helen', 'reviewing','4151 Hazelbridge Way, Richmond, BC V6X 0A4',25,'helen@gmail.com');
 INSERT INTO Interviewee VALUES(4,'604-567-5678','Ivy', 'reviewing','302 W Hastings St, Vancouver, BC V6B 2N4',21,'ivy@gmail.com');
 
-INSERT INTO Booked VALUES(0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0', '0', 0);
+INSERT INTO Booked VALUES(0, '2000-01-01 00:00:00', '2000-01-01 01:00:00', 0, '0', '0', 0);
 INSERT INTO Booked VALUES(1, '2019-07-02 11:00:00', '2019-07-02 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a', 1);
 INSERT INTO Booked VALUES(2, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a', 2);
 INSERT INTO Booked VALUES(3, '2019-07-04 15:00:00', '2019-07-04 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b', 3);
