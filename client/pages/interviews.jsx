@@ -7,6 +7,10 @@ import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InterviewTable from "../components/InterviewTable";
 import styled from "styled-components";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Container = styled.div`
   text-align: center;
@@ -33,15 +37,18 @@ export default class Interviews extends Component {
     super();
     this.state = {
       clicked: false,
-      location: false
+      location: false,
+      openDialog: false
     };
+    this.handleCloseDialog = this.handleCloseDialog.bind(this);
   }
 
   componentDidMount() {
     this.setState({
       ...this.state,
       clicked: false,
-      location: false
+      location: false,
+      openDialog: false
     });
   }
 
@@ -75,6 +82,11 @@ export default class Interviews extends Component {
   handleInterviewee() {
     if(this.state.selectedInterview) {
       Router.push("/form?interviewId=" + this.state.selectedInterview);
+    } else {
+      this.setState({
+        ...this.state,
+        openDialog: true
+      });
     }
   }
 
@@ -91,7 +103,19 @@ export default class Interviews extends Component {
         ...this.state,
         clicked: !this.state.clicked
       });
-    }  
+    } else {
+        this.setState({
+          ...this.state,
+          openDialog: true
+      });
+    }
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      ...this.state,
+      openDialog: false
+  });
   }
 
   clickInterview = interviewId => {
@@ -156,6 +180,18 @@ export default class Interviews extends Component {
         >
           Get Interviews!
         </Button>
+        
+        <Dialog
+          open={this.state.openDialog}
+          onClose={this.handleCloseDialog}>
+            <DialogTitle id="alert-dialog-title">{"Error"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Please choose a date before clicking 'Get Interviews!'.
+                Please select an interview before proceeding to the next page.
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
 
         <InterviewTable
           clicked={this.state.clicked}
