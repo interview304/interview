@@ -17,7 +17,7 @@ INSERT INTO Location VALUES('2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
 INSERT INTO Location VALUES('2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
 INSERT INTO Location VALUES('2053 Main Mall, Vancouver, BC, V6T 1Z2', 'c');
 INSERT INTO Location VALUES('2366 Main Mall, Vancouver, BC, V6T 1Z4', 'c');
-INSERT INTO Location VALUES('800 Junior road Vancouver, BC, V6T 2J1', 'M');
+INSERT INTO Location VALUES('800 Junior Road Vancouver, BC, V6T 2J1', 'M');
 INSERT INTO Location VALUES('5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
 
 INSERT INTO Provides_Amenities VALUES(0, 'accessibility', 'translator', '2053 Main Mall, Vancouver, BC, V6T 1Z2','a');
@@ -28,13 +28,24 @@ INSERT INTO Provides_Amenities VALUES(4, 'supplies', 'stapler', '2053 Main Mall,
 
 INSERT INTO Available VALUES(0, '2000-01-01 00:00:00', '2000-01-01 01:00:00', 0, '0', '0');
 INSERT INTO Available VALUES(5, '2019-07-02 11:00:00', '2019-07-02 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
-INSERT INTO Available VALUES(6, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
-INSERT INTO Available VALUES(7, '2019-07-04 15:00:00', '2019-07-04 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
-INSERT INTO Available VALUES(8, '2019-07-05 16:00:00', '2019-07-05 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
-INSERT INTO Available VALUES(932, '2019-05-29 16:00:00', '2019-05-29 17:00:00', 2, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
-INSERT INTO Available VALUES(933, '2019-05-27 16:00:00', '2019-05-27 17:00:00', 2, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
-INSERT INTO Available VALUES(934, '2019-05-27 18:00:00', '2019-05-27 19:00:00', 2, '5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
-INSERT INTO Available VALUES(935, '2019-05-27 19:00:00', '2019-05-27 20:00:00', 2, '800 Junior road Vancouver, BC, V6T 2J1', 'M');
+INSERT INTO Available VALUES(6, '2019-07-02 14:00:00', '2019-07-02 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
+INSERT INTO Available VALUES(7, '2019-07-02 15:00:00', '2019-07-02 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+INSERT INTO Available VALUES(8, '2019-07-02 16:00:00', '2019-07-02 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+
+INSERT INTO Available VALUES(9, '2019-05-29 16:00:00', '2019-05-29 17:00:00', 2, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+INSERT INTO Available VALUES(10, '2019-05-27 16:00:00', '2019-05-27 17:00:00', 2, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+INSERT INTO Available VALUES(11, '2019-05-27 18:00:00', '2019-05-27 19:00:00', 2, '5282 Fifth Street Vancouver, BC, V6A 3B9', 'j');
+INSERT INTO Available VALUES(12, '2019-05-27 19:00:00', '2019-05-27 20:00:00', 2, '800 Junior Road Vancouver, BC, V6T 2J1', 'M');
+
+INSERT INTO Available VALUES(13, '2019-07-03 11:00:00', '2019-07-03 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
+INSERT INTO Available VALUES(14, '2019-07-03 14:00:00', '2019-07-03 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
+INSERT INTO Available VALUES(15, '2019-07-03 15:00:00', '2019-07-03 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+INSERT INTO Available VALUES(16, '2019-07-03 16:00:00', '2019-07-03 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+
+INSERT INTO Available VALUES(17, '2019-07-04 11:00:00', '2019-07-04 12:00:00', 1, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
+INSERT INTO Available VALUES(18, '2019-07-04 14:00:00', '2019-07-04 15:00:00', 2, '2053 Main Mall, Vancouver, BC, V6T 1Z2', 'a');
+INSERT INTO Available VALUES(19, '2019-07-04 15:00:00', '2019-07-04 16:00:00', 3, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
+INSERT INTO Available VALUES(20, '2019-07-04 16:00:00', '2019-07-04 17:00:00', 4, '2366 Main Mall, Vancouver, BC, V6T 1Z4', 'b');
 
 INSERT INTO Interviewee VALUES(0,'0000000000','0','0','0', 0,'0');
 INSERT INTO Interviewee VALUES(1,'604-123-1234','Felix','reviewing','600 Pine St, #403, Seattle, WA 98101',23,'felix@gmail.com');
@@ -91,12 +102,13 @@ INSERT INTO Contains VALUES(1, 0, 1);
 INSERT INTO Contains VALUES(2, 0, 2);
 INSERT INTO Contains VALUES(3, 0, 3);
 INSERT INTO Contains VALUES(4, 0, 4);
-INSERT INTO Contains VALUES(0, 933, 0);
-INSERT INTO Contains VALUES(0, 932, 3);
-INSERT INTO Contains VALUES(0, 934, 1);
-INSERT INTO Contains VALUES(0, 935, 3);
-INSERT INTO Contains VALUES(0, 934, 2);
-INSERT INTO Contains VALUES(0, 935, 1);
+
+INSERT INTO Contains VALUES(0, 10, 0);
+INSERT INTO Contains VALUES(0, 9, 3);
+INSERT INTO Contains VALUES(0, 11, 1);
+INSERT INTO Contains VALUES(0, 12, 3);
+INSERT INTO Contains VALUES(0, 11, 2);
+INSERT INTO Contains VALUES(0, 12, 1);
 
 
 
