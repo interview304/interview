@@ -111,6 +111,32 @@ export default class Interviews extends Component {
     }
   }
 
+  getDate() {
+    let date = this.props.interview.start.substring(0, 10);
+    return date;
+  }
+
+  getTime() {
+    if(this.state.earliest) {
+      return this.formatTime(this.state.earliest.substring(11, 19));
+    }
+  }
+
+  formatTime(time) {
+    // Check correct time format and split into components
+    time = time
+      .toString()
+      .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+
+    if (time.length > 1) {
+      time = time.slice(1);
+      time.splice(-1);
+      time[5] = +time[0] < 12 ? " am" : " pm";
+      time[0] = +time[0] % 12 || 12;
+    }
+    return time.join("");
+  }
+
   handleCloseDialog() {
     this.setState({
       ...this.state,
@@ -160,8 +186,8 @@ export default class Interviews extends Component {
         <div>{interviews}</div>
 
         <h4>
-          Earliest interview in your selected time starts at:{" "}
-          {this.state.earliest}
+          Earliest interview in your selected date starts at:{" "}
+          {this.getTime()}
         </h4>
         <FormGroup style={{ display: "block" }} row>
           <FormControlLabel
