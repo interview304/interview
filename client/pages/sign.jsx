@@ -10,6 +10,17 @@ const Container = styled.div`
   text-align: center;
 `;
 
+const Form = styled(FormGroup)`
+text-align: center;
+margin-bottom: 24px;
+`;
+
+const FormLabel = styled(FormControlLabel)`
+  display: block !important;
+  width: 100%;
+  text-align: center;
+`;
+
 export default class sign extends Component {
   static async getInitialProps({ query }) {
     return {
@@ -73,17 +84,21 @@ export default class sign extends Component {
       <Container>
         <h1>Sign Agreement</h1>
 
-        <FormGroup row>
-          <FormControlLabel
+        <Form>
+          <FormLabel
             control={<Checkbox onChange={event => this.setNDA(event)} />}
             label="Sign NDA"
           />
-          <FormControlLabel
+          <FormLabel
             control={<Checkbox onChange={event => this.setTermsOfUse(event)} />}
             label="Sign Terms of Use"
           />
-        </FormGroup>
-        <Button variant="contained" onClick={() => this.bookInterview()}>
+        </Form>
+        <Button
+          color="secondary"
+          variant="outlined"
+          onClick={() => this.bookInterview()}
+        >
           Book interview!
         </Button>
       </Container>
