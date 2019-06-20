@@ -5,8 +5,20 @@ import Router from "next/router";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-
 import { CardContent } from "@material-ui/core";
+import styled from "styled-components";
+
+const DetailName = styled(Typography)`
+  margin-bottom: 3%;
+`;
+
+const DetailText = styled(Typography)`
+  padding: 3% 1% 0 1%;
+`;
+
+const NiceCard = styled(Card)`
+  min-width: 65vw;
+`;
 
 export default class confirm extends Component {
   static async getInitialProps({ query }) {
@@ -33,10 +45,6 @@ export default class confirm extends Component {
     });
 
     return Promise.all([interviewPromise, intervieweePromise]).then(() => {
-      console.log("INTERVIEW");
-      console.log(interview);
-      console.log("INTERVIEWEE");
-      console.log(interviewee);
       return {
         interview: interview,
         interviewee: interviewee
@@ -99,20 +107,16 @@ export default class confirm extends Component {
           spacing={2}
         >
           <Grid item xs={12}>
-            <Typography variant="h4" className="title" gutterBottom>
+            <Typography variant="h4" gutterBottom>
               Confirm Your Details
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Card className="card" pb={2}>
+            <NiceCard pb={2}>
               <CardContent>
-                <Typography
-                  variant="h6"
-                  className="detailsText"
-                  fontWeight="700"
-                >
+                <DetailText variant="h6" fontWeight="700">
                   Interview Details
-                </Typography>
+                </DetailText>
                 <hr />
                 <Grid
                   container
@@ -122,14 +126,10 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Date
-                    </Typography>
+                    <DetailName variant="button">Date</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
-                      {this.getDate()}
-                    </Typography>
+                    <DetailName variant="body2">{this.getDate()}</DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -140,14 +140,10 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Time
-                    </Typography>
+                    <DetailName variant="button">Time</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
-                      {this.getTime()}
-                    </Typography>
+                    <DetailName variant="body2">{this.getTime()}</DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -158,14 +154,12 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Address
-                    </Typography>
+                    <DetailName variant="button">Address</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interview.address}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -176,25 +170,19 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Room
-                    </Typography>
+                    <DetailName variant="button">Room</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interview.room}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <br />
                 <br />
-                <Typography
-                  variant="h6"
-                  className="detailsText"
-                  fontWeight="700"
-                >
+                <DetailText variant="h6" fontWeight="700">
                   Personal Information
-                </Typography>
+                </DetailText>
                 <hr />
                 <Grid
                   container
@@ -204,14 +192,12 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Name
-                    </Typography>
+                    <DetailName variant="button">Name</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interviewee.name}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -222,14 +208,12 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Phone
-                    </Typography>
+                    <DetailName variant="button">Phone</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interviewee.phone_number}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -240,14 +224,12 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Age
-                    </Typography>
+                    <DetailName variant="button">Age</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interviewee.age}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -258,14 +240,12 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Email
-                    </Typography>
+                    <DetailName variant="button">Email</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interviewee.email}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
                 <Grid
@@ -276,18 +256,16 @@ export default class confirm extends Component {
                 >
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography variant="button" className="detailName">
-                      Address
-                    </Typography>
+                    <DetailName variant="button">Address</DetailName>
                   </Grid>
                   <Grid item xs={7}>
-                    <Typography variant="body2" className="detailName">
+                    <DetailName variant="body2">
                       {this.props.interviewee.address}
-                    </Typography>
+                    </DetailName>
                   </Grid>
                 </Grid>
               </CardContent>
-            </Card>
+            </NiceCard>
           </Grid>
           <Grid item xs={12}>
             <Button
