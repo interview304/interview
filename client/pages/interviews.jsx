@@ -73,7 +73,9 @@ export default class Interviews extends Component {
   }
 
   handleInterviewee() {
-    Router.push("/form?interviewId=" + this.state.selectedInterview);
+    if(this.state.selectedInterview) {
+      Router.push("/form?interviewId=" + this.state.selectedInterview);
+    }
   }
 
   setShowLocation(event) {
@@ -84,10 +86,12 @@ export default class Interviews extends Component {
   }
 
   generateTable() {
-    this.setState({
-      ...this.state,
-      clicked: !this.state.clicked
-    });
+    if(this.state.date) {
+      this.setState({
+        ...this.state,
+        clicked: !this.state.clicked
+      });
+    }  
   }
 
   clickInterview = interviewId => {
