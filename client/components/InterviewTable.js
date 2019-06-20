@@ -101,6 +101,39 @@ export default class InterviewTable extends Component {
         });
         this.props.callback(interviewId);
     }
+    getDateTime(ts) {
+        let date = this.getDate(ts);
+        let time = this.getTime(ts);
+        return date + " " + time;
+    }
+
+    getDate(ts) {
+        if (ts) {
+            return ts.substring(0, 10);
+        }
+    }
+    
+    getTime(ts) {
+        if(ts) {
+            return this.formatTime(ts.substring(11, 19));
+        }
+        
+    }
+    
+    formatTime(time) {
+        // Check correct time format and split into components
+        time = time
+          .toString()
+          .match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
+    
+        if (time.length > 1) {
+          time = time.slice(1);
+          time.splice(-1);
+          time[5] = +time[0] < 12 ? " am" : " pm";
+          time[0] = +time[0] % 12 || 12;
+        }
+        return time.join("");
+    }
 
     render() {
         if (this.props.clicked) {
@@ -127,8 +160,8 @@ export default class InterviewTable extends Component {
                                                 Select
                                             </Button>
                                         </TableCell>
-                                        <TableCell>{interview.start}</TableCell>
-                                        <TableCell>{interview.end}</TableCell>
+                                        <TableCell>{this.getDateTime(interview.start)}</TableCell>
+                                        <TableCell>{this.getDateTime(interview.end)}</TableCell>
                                         <TableCell>{interview.address}</TableCell>
                                         <TableCell>{interview.room}</TableCell>
                                     </TableRow>
@@ -158,8 +191,8 @@ export default class InterviewTable extends Component {
                                                 Select
                                             </Button>
                                         </TableCell>
-                                        <TableCell>{interview.start}</TableCell>
-                                        <TableCell>{interview.end}</TableCell>
+                                        <TableCell>{this.getDateTime(interview.start)}</TableCell>
+                                        <TableCell>{this.getDateTime(interview.end)}</TableCell>
                                     </TableRow>
                                 ))
                             }

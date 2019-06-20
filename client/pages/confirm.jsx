@@ -57,7 +57,7 @@ export default class confirm extends Component {
   }
 
   getTime() {
-    let start = this.formatTime(this.props.interview.end.substring(11, 19));
+    let start = this.formatTime(this.props.interview.start.substring(11, 19));
     let end = this.formatTime(this.props.interview.end.substring(11, 19));
 
     return start + " - " + end;
